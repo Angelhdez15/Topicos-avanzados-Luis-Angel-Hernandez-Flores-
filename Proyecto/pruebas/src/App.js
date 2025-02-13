@@ -1,9 +1,10 @@
-import { HomeProductos } from "./components/Productos/HomeProductos";
+import {BrowserRouter} from "react-router-dom"
+import {Rutas} from "./routes"
 function App() {
   return (
-    <div>
-    <HomeProductos/>  
-    </div>
+   <BrowserRouter>
+   <Rutas/>
+   </BrowserRouter>
   );
 }
 
