@@ -1,5 +1,6 @@
 import React from 'react'
 import { Menu } from '../components/inicio' 
+import {Footer} from '../page/Footer'
 export function Layout({children}) {
   return (
     <div>
@@ -8,6 +9,7 @@ export function Layout({children}) {
       </div>
       <div className="body">{children}</div>
       <div className="footer">
+        <Footer/>
         </div>
     </div>
   )
