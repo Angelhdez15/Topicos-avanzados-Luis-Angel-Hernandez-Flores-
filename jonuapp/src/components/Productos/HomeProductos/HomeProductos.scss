@@ -2,5 +2,36 @@
     display: flex;
     align-content: space-between;
     align-items: center;
-    background-color: "white";
+    background-color: "black";
 }
+.container {
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .p-2 {
+    padding: 10px;
+  }
+  .table-dark {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .table-dark th,
+  .table-dark td {
+    border-color: #454d55;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
