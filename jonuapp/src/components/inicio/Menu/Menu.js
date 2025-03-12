@@ -14,6 +14,8 @@ export function Menu() {
         <Link className='nav-link' to="/producto">Paquetes</Link>
         <Link className='nav-link' to="/actividades">Actividades</Link>
       </Nav>
+      <Nav><Link className='nav-link' to="/login">Iniciar sesión</Link>
+      <Link className='nav-link' to="/registro">Registrarse</Link></Nav>
     </Container>
   </Navbar>
   )

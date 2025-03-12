@@ -34,12 +34,7 @@
     height: auto; /* Altura automática para mantener la proporción */
     border-radius: 5px; /* Bordes redondeados para la imagen */
   }
-  .image-left {
-    max-width: 300px; /* Ancho máximo de la imagen */
-    height: auto; /* Altura automática para mantener la proporción */
-    border-radius: 5px; /* Bordes redondeados para la imagen */
-  }
-  
+
   blockquote {
     font-size: 1rem;
     font-style: italic;

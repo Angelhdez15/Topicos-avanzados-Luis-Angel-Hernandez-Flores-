@@ -1,6 +1,6 @@
 import React from "react"
 import "./Home.css"
-import imag1 from"./imag1.png"
+import imag1 from"./imag1.jpg"
 import imag2 from"./imag2.png"
 
 export function Home() {
@@ -16,8 +16,17 @@ export function Home() {
       sequía, las personas pueden acudir al lugar para convivir con la especie. Al iniciar las lluvias, es
       menos probable avistar a los ejemplares, debido a que el aumento en el cauce provoca que se
       retiren a otros puntos.
+      <center> <a
+          href="https://maps.app.goo.gl/efrbPhV29bVjSbBG7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="map-link"
+        >
+          Ver ubicación en Google Maps
+        </a> </center>
     </pre>
     <img src={imag1} alt="Descripción de la imagen" className="image-right" />
+
   </div>
 
  
@@ -31,7 +40,7 @@ export function Home() {
   En el santuario Jonuteek, se puede convivir con esta hermosa especie y se cuenta con actividades recreativas 
   como paseos a caballo, senderismo, avistamiento de aves y un lugar para degustar las delicias gastronómicas de Tabasco.
   </pre>
-  <img src={imag2} alt="Descripción de la imagen" className="image-izquierda" />
+  <img src={imag2} alt="Descripción de la imagen" className="image-right" />
  </div>
  </div >
  </div>

@@ -147,7 +147,7 @@ export const datos4=[
     {
         nombre4:"Acampar ",
         precio4:"$100",
-        cantidad4:"3",
+        cantidad4:"3 personas",
         horario4:'8-7pm', 
         fecha4:"10-04-2025",
         imagen4:"https://sandiario.com/cdn/shop/articles/blog-lugar-campamento-0.webp?v=1719469007"
@@ -155,15 +155,15 @@ export const datos4=[
     {
         nombre4:"Alimentar manaties ",
         precio4:"$100",
-        cantidad4:"1",
+        cantidad4:"1 persona",
         horario4:'8-4pm', 
         fecha4:"20 de abril al 30 de junio ",
         imagen4:"https://ruta21.mx/uploads/0000/11/2023/04/18/manati7.jpg"
     },
     {
-        nombre4:"Paseo en cayuco (Iguanal) ",
+        nombre4:"Paseo en la laguna el tinto  ",
         precio4:"$50",
-        cantidad4:"5",
+        cantidad4:"5 personas",
         horario4:'8-4 pm', 
         fecha4:"20 de abril al 30 de junio",
         imagen4:"https://www.guate360.com/galeria/data/media/52/playas-de-guatemala-monterrico-beach-hoteles-canal-chiquimulilla-manglares.jpg"
@@ -173,33 +173,33 @@ export const datos5=[
     {
         nombre5:"Avistamiento de lagartos ",
         precio5:"150",
-        cantidad5:"10",
+        cantidad5:"4 personas",
         horario5:'12-5 pm ', 
         fecha5:"hoy",
-        imagen5:""
+        imagen5:"https://www.soy502.com/sites/default/files/styles/mobile_full_node/public/2023/Nov/08/lagartos_rio_chixoy_quiche.jpg"
     },
     {
-        nombre5:"Avistamiento de lagartos ",
-        precio5:"$150",
-        cantidad5:"10",
+        nombre5:"Avistamiento de manaties  ",
+        precio5:"$100",
+        cantidad5:"1 persona",
         horario5:'12-5 pm ', 
         fecha5:"hoy",
-        imagen5:""
+        imagen5:"https://jonuteek.com.mx/wp-content/uploads/2024/04/366012295_262063839904858_3188139940288693712_n.jpg"
     },
     {
-        nombre5:"Avistamiento de lagartos ",
-        precio5:"$150",
-        cantidad5:"10",
+        nombre5:"Avistamiento de monos ",
+        precio5:"$50",
+        cantidad5:"1 persona",
         horario5:'12-5 pm ', 
         fecha5:"hoy",
-        imagen5:""
+        imagen5:"https://ecochiapas.com/wp-content/uploads/2024/04/AUR_2211-300x200.webp"
     },
     {
-        nombre5:"Avistamiento de lagartos ",
-        precio5:"150",
-        cantidad5:"10",
+        nombre5:"Paseo en cayucos  ",
+        precio5:"200",
+        cantidad5:"6 personas",
         horario5:'12-5 pm ', 
         fecha5:"hoy",
-        imagen5:""
+        imagen5:"https://pbs.twimg.com/media/CvE94VOVMAA-X1N.jpg"
     },
 ]
