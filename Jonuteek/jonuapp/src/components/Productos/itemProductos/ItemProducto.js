@@ -1,6 +1,7 @@
 import React from "react";
-import {Card,Button } from "react-bootstrap"
+import {Card, Button} from "react-bootstrap"
 import "./ItemProductos.scss"
+
 export function ItemProductos({producto,onReservar}) {
   return (
     <div className='p-2' >
@@ -23,7 +24,7 @@ export function ItemProductos({producto,onReservar}) {
 }
 export function ItemPaquetes({ productos,onReservar }) {
   return (
-    <div className="item-producto">
+    <div className="p-2">
         <Card>
             <Card.Img variant="top" src={productos.imagen2} />
             <Card.Body className="body">

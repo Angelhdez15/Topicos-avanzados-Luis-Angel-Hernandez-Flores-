@@ -1,19 +1,21 @@
-import * as yup from 'yup';
+import * as YUP from "yup";
+
 export function initialValues(){
     return{
-        Producto:"",
-        Precio:"",
-        Cantidad:"",
-        Unidad:"",
-        imagen:""
+        nombre: "",
+        precio: "",
+        cantidad: "",
+        unidad: "",
+        imagen: "",
     }
 }
+
 export function validationSchema(){
-    return yup.object({
-        nombre: yup.string(),
-        precio: yup.number(),
-        cantidad: yup.number(),
-        unidad: yup.number(),
-        imagen: yup.string()
+    return YUP.object({
+        nombre:YUP.string(),
+        precio: YUP.number(),
+        cantidad: YUP.number(),
+        unidad: YUP.string(),
+        imagen: YUP.string()
     })
 }

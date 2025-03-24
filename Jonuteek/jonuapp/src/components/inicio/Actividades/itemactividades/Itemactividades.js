@@ -1,5 +1,7 @@
 import React from "react";
-import {Card,Button } from "react-bootstrap"
+import {Card, Button} from "react-bootstrap"
+import "./itemactividades.scss"
+
 export function Itemactividades({producto,onReservar}) {
   return (
     <div className='p-2' >
@@ -18,7 +20,8 @@ export function Itemactividades({producto,onReservar}) {
           </Card>
         
     </div>
-  );}
+  );
+}
 export function Itemactividades2({productos,onReservar}) {
     return (
       <div className='p-2' >

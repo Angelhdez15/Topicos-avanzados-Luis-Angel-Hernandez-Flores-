@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import { datos, datos2 } from '../../../utils/Bd';
-import { ItemPaquetes, ItemProductos } from '../itemProductos/ItemProducto';
+import {datos3, datos4,datos5} from '../../../../utils/Bd';
+import { Itemactividades, Itemactividades2, Itemactividades3 } from '../itemactividades/Itemactividades';
 import { Row, Col, Table, Button, Modal } from "react-bootstrap"; // Importa Modal
-import "./HomeProductos.scss";
 
-export function HomeProductos() {
-  const fondo = {
-    tema: {
-      backgroundColor: 'black',
-      color: "white",
-      fontSize: '20px'
-    }
-  };
+
+export function Actividades() {
+
 
   // Estado para almacenar los paquetes reservados
   const [reservas, setReservas] = useState([]);
@@ -41,29 +35,37 @@ export function HomeProductos() {
   };
 
   return (
-    <div className='container' style={fondo.tema}>
-      <center><h1>Paquetes de Transporte</h1></center>
+    <div className='container' >
+      <center><h1>Santuario Del Manati El Girasoles</h1></center>
       <Row xs={1} md={3} lg={4}>
-        {datos.map((producto, index) => (
+        {datos3.map((producto, index) => (
           <Col key={index}>
             <div className="p-2">
-              <ItemProductos producto={producto} onReservar={() => handleReservar(producto.nombre)} />
+              <Itemactividades producto={producto} onReservar={() => handleReservar(producto.nombre3)} />
             </div>
           </Col>
         ))}
       </Row>
-
-      <center><h1>Paquetes de Comida</h1></center>
+      <center><h1>Santuario Del Manati El Iguanal</h1></center>
       <Row xs={1} md={3} lg={4}>
-        {datos2.map((productos, index) => (
+        {datos4.map((productos, index) => (
           <Col key={index}>
             <div className="p-2">
-              <ItemPaquetes productos={productos} onReservar={() => handleReservar(productos.nombre2)} />
+              <Itemactividades2 productos={productos} onReservar={() => handleReservar(productos.nombre4)} />
             </div>
           </Col>
         ))}
       </Row>
-
+      <center><h1>Santuario Del Manati El Mangalitos</h1></center>
+      <Row xs={1} md={3} lg={4}>
+        {datos5.map((productos1, index) => (
+          <Col key={index}>
+            <div className="p-2">
+              <Itemactividades3 productos1={productos1} onReservar={() => handleReservar(productos1.nombre5)} />
+            </div>
+          </Col>
+        ))}
+      </Row>
       <center><h2>Reservas</h2></center>
       <Table striped bordered hover variant="dark">
         <thead>
