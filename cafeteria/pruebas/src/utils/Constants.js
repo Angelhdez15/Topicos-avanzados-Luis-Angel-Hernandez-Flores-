@@ -6,6 +6,7 @@ export const ENV={
     BASE_API:localH,
     API_ROUTES:{
         CREATEPRODUCTO:"/createproduct",
-        GETPRODUCTO:"/getproducto"
+        GETPRODUCTO:"/getproducto",
+        DELPRODUCTO:"/delproducto"
     }
 }
