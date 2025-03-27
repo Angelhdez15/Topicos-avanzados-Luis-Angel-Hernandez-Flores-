@@ -10,22 +10,42 @@ const ctrProducto = new Producto();
 export function Productos() {
   const [listaProductos, setListaProductos] = useState([]);
   const [mensajeExito, setMensajeExito] = useState(""); // Estado para el mensaje de éxito
+  const [productoEditando, setProductoEditando] = useState(null); // Estado para el producto en edición
+
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
-onSubmit: async (formValue) => {
-  try {
-    const nuevoProducto = await ctrProducto.createProduct(formValue); // Asegúrate de que `createProduct` devuelva el producto creado
-    setListaProductos((prevProductos) => [...prevProductos, nuevoProducto]); // Agrega el nuevo producto al estado
-    setMensajeExito("Producto agregado correctamente"); // Muestra el mensaje de éxito
-    setTimeout(() => setMensajeExito(""), 3000); // Oculta el mensaje después de 3 segundos
-  } catch (error) {
-    console.error("Error al agregar producto:", error);
-  }
-},
-  });
+    onSubmit: async (formValue) => {
+      try {
+        console.log("Datos enviados:", formValue); // Depuración
+    
+        if (productoEditando) {
+          // Si hay un producto en edición, actualízalo
+          const actualizado = await ctrProducto.updateProducto(productoEditando._id, formValue);
+          console.log("Respuesta del servidor:", actualizado); // Depuración
+    
+          setListaProductos((prevProductos) =>
+            prevProductos.map((producto) =>
+              producto._id === productoEditando._id ? { ...producto, ...formValue } : producto
+            )
+          );
+          setProductoEditando(null); // Limpia el estado de edición
+          setMensajeExito("Producto actualizado correctamente");
+        } else {
+          // Si no hay producto en edición, crea uno nuevo
+          const nuevoProducto = await ctrProducto.createProduct(formValue);
+          setListaProductos((prevProductos) => [...prevProductos, nuevoProducto]);
+          setMensajeExito("Producto agregado correctamente");
+        }
+        setTimeout(() => setMensajeExito(""), 3000);
+        formik.resetForm(); // Limpia el formulario
+      } catch (error) {
+        console.error("Error al guardar producto:", error);
+      }
+    },
+});
 
   const obtenerProductos = async () => {
     try {
@@ -48,6 +68,17 @@ onSubmit: async (formValue) => {
     }
 };
 
+
+const editarProducto = (producto) => {
+  setProductoEditando(producto);
+  formik.setValues({
+    nombre: producto.nombre || "",
+    precio: producto.precio || "",
+    cantidad: producto.cantidad || "",
+    unidad: producto.unidad || "",
+    imagep: null, // La imagen no se puede previsualizar en un input file
+  });
+};
 
   useEffect(() => {
     obtenerProductos();
@@ -104,22 +135,23 @@ onSubmit: async (formValue) => {
             />
           </Form.Group>
           <Form.Group as={Col} md="3">
-            <Form.Label>Imagen</Form.Label>
-            <Form.Control
-              type="file"
-              name="imagen"
-              onChange={(event) =>
-                formik.setFieldValue("imagen", event.currentTarget.files[0])
-              }
-            />
-          </Form.Group>
+  <Form.Label>Imagen</Form.Label>
+  <Form.Control
+    type="file"
+    name="imagep" // Asegúrate de que el nombre coincida con el backend
+    onChange={(event) =>
+      formik.setFieldValue("imagep", event.currentTarget.files[0])
+    }
+  />
+</Form.Group>
         </Row>
 
-        <Button type="submit">Enviar</Button>
-      </Form>
+        <Button type="submit">
+          {productoEditando ? "Actualizar" : "Enviar"}
+        </Button>      </Form>
 
       <Row>
-        <ListProductos productos={listaProductos} onEliminar={eliminarProducto} />
+        <ListProductos productos={listaProductos} onEliminar={eliminarProducto} onEditar={editarProducto} />
       </Row>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from "react-bootstrap";
 
-export function ListProductos({ productos, onEliminar }) { 
+export function ListProductos({ productos, onEliminar,onEditar }) { 
   return (
     <Table striped>
       <thead>
@@ -25,9 +25,20 @@ export function ListProductos({ productos, onEliminar }) {
               <td>${producto.precio}</td>
               <td>{producto.cantidad}</td>
               <td>{producto.unidad}</td>
-              <td><img src={producto.imagen} alt="Imagen" width="50" /></td>
-              <td><Button variant="success">Editar</Button></td>
               <td>
+                <img 
+                  src={producto.imagep} 
+                  alt="Imagen" 
+                  width="50" 
+                  
+                />
+              </td>
+              <Button 
+                  variant="success" 
+                  onClick={() => onEditar(producto)}
+                >
+                  Editar
+                </Button>              <td>
                 <Button 
                   variant="danger" 
                   onClick={() => onEliminar(producto._id)}

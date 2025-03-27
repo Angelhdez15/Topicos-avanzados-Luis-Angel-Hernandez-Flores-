@@ -1,9 +1,9 @@
 function getFilePath(file) {
-    const filePath=file.path
-    const fileSprit=filePath.split("\\")
-    return `${fileSprit[0]}/${fileSprit[1]}`
+    const filePath = file.path;
+    const fileSplit = filePath.split("\\");
+    return fileSplit.join("/"); // Convierte las barras invertidas en barras normales
 }
 
 module.exports = {
     getFilePath
-}
+};

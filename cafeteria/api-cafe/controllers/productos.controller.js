@@ -56,10 +56,23 @@ async function delProducto(req, res) {
 async function updateProducto(req, res) {
     const { id } = req.params;
     const updateproducto = req.body;
+
+    console.log("ID del producto a actualizar:", id);
+    console.log("Datos recibidos para actualizar:", updateproducto);
+
     try {
-        await Producto.findByIdAndupdate({ _id: id }, updateproducto);
-        res.status(200).send({ msg: "Dato actualizados correctamente" });
+        if (req.files && req.files.imagep) {
+            const imagePath = imagen.getFilePath(req.files.imagep);
+            updateproducto.imagep = imagePath;
+            console.log("Ruta de la nueva imagen:", imagePath);
+        }
+
+        const productoActualizado = await Producto.findByIdAndUpdate(id, updateproducto, { new: true });
+        console.log("Producto actualizado:", productoActualizado);
+
+        res.status(200).send(productoActualizado);
     } catch (error) {
+        console.error("Error al actualizar producto:", error);
         res.status(400).send({ msg: "Error al actualizar" });
     }
 }
