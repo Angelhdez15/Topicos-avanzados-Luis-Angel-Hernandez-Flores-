@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { datos, datos2 } from '../../../utils/Bd';
 import { ItemPaquetes, ItemProductos } from '../itemProductos/ItemProducto';
 import { Row, Col, Table, Button, Modal } from "react-bootstrap"; // Importa Modal
-
 export function HomeProductos() {
  
   // Estado para almacenar los paquetes reservados
   const [reservas, setReservas] = useState([]);
+
 
   // Estado para controlar la visibilidad del modal
   const [showModal, setShowModal] = useState(false);
