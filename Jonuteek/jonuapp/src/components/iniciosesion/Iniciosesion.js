@@ -29,6 +29,9 @@ export const Login = () => {
 
   return (
     <div className="login-container">
+      <div className="avatar">
+<center><img src="https://cdn1.iconfinder.com/data/icons/messenger-and-society/16/user_person_avatar_unisex-1024.png" alt="Avatar" width="100%" height="100%" /></center> 
+      </div>
       <h2>Iniciar Sesión</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
