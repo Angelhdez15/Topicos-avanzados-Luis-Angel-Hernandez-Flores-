@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Button, Form, Row, Col, InputGroup, Alert } from "react-bootstrap";
 import { initialValues, validationSchema } from "./Productos.form";
-import { ListProductos } from "../ListProductos";
+import { ListProductos } from "../ListProductos/ListProductos";
 import { Producto } from "../../api";
 
 const ctrProducto = new Producto();

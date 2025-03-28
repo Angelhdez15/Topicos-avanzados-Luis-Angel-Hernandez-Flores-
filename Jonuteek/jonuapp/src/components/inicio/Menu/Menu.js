@@ -16,6 +16,8 @@ export function Menu() {
       </Nav>
       <Nav><Link className='nav-link' to="/login">Iniciar sesión</Link>
       <Link className='nav-link' to="/registro">Registrarse</Link></Nav>
+      <Link className='nav-link' to="/formproducto">Gestion</Link>
+
     </Container>
   </Navbar>
   )
