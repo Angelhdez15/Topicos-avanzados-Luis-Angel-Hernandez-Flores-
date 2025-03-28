@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { datos, datos2 } from '../../../utils/Bd';
 import { ItemPaquetes, ItemProductos } from '../itemProductos/ItemProducto';
+<<<<<<< HEAD
 import { Row, Col, Table, Button, Modal } from "react-bootstrap"; // Importa Modal
 export function HomeProductos() {
  
@@ -9,27 +10,36 @@ export function HomeProductos() {
 
 
   // Estado para controlar la visibilidad del modal
+=======
+import { Row, Col, Button, Modal } from "react-bootstrap";
+
+export function HomeProductos() {
+  const [carrito, setCarrito] = useState([]);
+  const [precioTotal, setPrecioTotal] = useState(0);
+>>>>>>> luis
   const [showModal, setShowModal] = useState(false);
 
-  // Función para manejar la reserva
-  const handleReservar = (nombre) => {
-    setReservas([...reservas, nombre]); // Agrega el nombre del paquete a la lista de reservas
+  const agregarAlCarrito = (producto, precio) => {
+    setCarrito([...carrito, producto]);
+    setPrecioTotal(precioTotal + precio);
+    alert(`¡Has agregado "${producto.nombre || producto.nombre2}" al carrito!`);
   };
 
-  // Función para eliminar una reserva
-  const handleEliminar = (index) => {
-    const nuevasReservas = reservas.filter((_, i) => i !== index); // Filtra la reserva a eliminar
-    setReservas(nuevasReservas);
+  const eliminarDelCarrito = (index, precio) => {
+    const nuevoCarrito = [...carrito];
+    nuevoCarrito.splice(index, 1);
+    setCarrito(nuevoCarrito);
+    setPrecioTotal(precioTotal - precio);
   };
 
-  // Función para modificar una reserva (puedes implementar la lógica que desees)
-  const handleModificar = (index) => {
-    const nuevoNombre = prompt("Ingrese el nuevo nombre del paquete:"); // Ejemplo de modificación
-    if (nuevoNombre) {
-      const nuevasReservas = [...reservas];
-      nuevasReservas[index] = nuevoNombre;
-      setReservas(nuevasReservas);
-    }
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const confirmarReservaciones = () => {
+    alert('¡Reservaciones confirmadas!');
+    setCarrito([]);
+    setPrecioTotal(0);
+    setShowModal(false);
   };
 
   return (
@@ -39,7 +49,10 @@ export function HomeProductos() {
         {datos.map((producto, index) => (
           <Col key={index}>
             <div className="p-2">
-              <ItemProductos producto={producto} onReservar={() => handleReservar(producto.nombre)} />
+              <ItemProductos 
+                producto={producto} 
+                onReservar={() => agregarAlCarrito(producto, producto.precio)} 
+              />
             </div>
           </Col>
         ))}
@@ -50,49 +63,54 @@ export function HomeProductos() {
         {datos2.map((productos, index) => (
           <Col key={index}>
             <div className="p-2">
-              <ItemPaquetes productos={productos} onReservar={() => handleReservar(productos.nombre2)} />
+              <ItemPaquetes 
+                productos={productos} 
+                onReservar={() => agregarAlCarrito(productos, productos.precio2)} 
+              />
             </div>
           </Col>
         ))}
       </Row>
 
-      <center><h2>Reservas</h2></center>
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Nombre del Paquete</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reservas.map((reserva, index) => (
-            <tr key={index}>
-              <td>{reserva}</td>
-              <td>
-                <Button variant="warning" onClick={() => handleModificar(index)}>Modificar</Button>{' '}
-                <Button variant="danger" onClick={() => handleEliminar(index)}>Eliminar</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-
-      <center>
-        <Button variant="primary" className="w-100 mt-3" onClick={() => setShowModal(true)}>
-          Confirmar Reservaciones
+      {/* Botón para abrir el modal */}
+      <div className="mt-4 text-center">
+        <Button variant="primary" onClick={handleShow}>
+          <i className="bi bi-cart me-2"></i> {/* Ícono de carrito */}
+          Ver Carrito de Compras
         </Button>
-      </center>
+      </div>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      {/* Modal del carrito */}
+      <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Reservación Exitosa</Modal.Title>
+          <Modal.Title>Carrito de Compras</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          ¡Tu reservación ha sido confirmada con éxito!
+          <ul>
+            {carrito.map((item, index) => (
+              <li key={index}>
+                <p><strong>Nombre:</strong> {item.nombre || item.nombre2}</p>
+                <p><strong>Descripción:</strong> {item.descripcion || 'No especificada'}</p>
+                <p><strong>Precio:</strong> ${item.precio || item.precio2}</p>
+                <Button 
+                  variant="danger" 
+                  size="sm" 
+                  className="ms-2" 
+                  onClick={() => eliminarDelCarrito(index, item.precio || item.precio2)}
+                >
+                  Eliminar
+                </Button>
+              </li>
+            ))}
+          </ul>
+          <h3>Total: ${precioTotal}</h3>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="secondary" onClick={handleClose}>
             Cerrar
+          </Button>
+          <Button variant="success" onClick={confirmarReservaciones}>
+            Confirmar Reservaciones
           </Button>
         </Modal.Footer>
       </Modal>
