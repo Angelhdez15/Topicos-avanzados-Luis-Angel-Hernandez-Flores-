@@ -20,7 +20,7 @@ export const Login = () => {
 
     console.log('Iniciando sesión con:', { username, password });
 
-    navigate('/'); 
+    navigate('/home'); 
   };
 
   const handleRegisterClick = () => {

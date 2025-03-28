@@ -17,11 +17,11 @@ export function Rutas() {
   return (
     
     <Routes>
-      <Route path="/login" element={Layouts(Layout,Login)}/>
-        <Route path="/" element={Layouts(Layout,Home)}/>
+      <Route path="/" element={<Login/>}/>
+        <Route path="/home" element={Layouts(Layout,Home)}/>
          <Route path="/producto" element={Layouts(Layout, HomeProductos)} />
          <Route path="/actividades" element={Layouts(Layout, Actividades)} />
-         <Route path="/registro" element={Layouts(Layout, Registro)} />
+         <Route path="/registro" element={<Registro/>} />
          <Route path="/formproducto" element={Layouts(Layout,Productos)} />
 
     </Routes>

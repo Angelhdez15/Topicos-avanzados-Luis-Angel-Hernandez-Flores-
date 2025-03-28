@@ -10,11 +10,11 @@ export function Menu() {
     <Container>
       <img src={Image} alt="Logo" width="130" height="80"/>
       <Nav className="me-auto">
-        <Link className='nav-link' to="/">Home</Link>
+        <Link className='nav-link' to="/home">Home</Link>
         <Link className='nav-link' to="/producto">Paquetes</Link>
         <Link className='nav-link' to="/actividades">Actividades</Link>
       </Nav>
-      <Nav><Link className='nav-link' to="/login">Iniciar sesión</Link>
+      <Nav><Link className='nav-link' to="/">Iniciar sesión</Link>
       <Link className='nav-link' to="/registro">Registrarse</Link></Nav>
       <Link className='nav-link' to="/formproducto">Gestion</Link>
 
