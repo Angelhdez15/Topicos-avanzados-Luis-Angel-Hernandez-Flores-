@@ -1,47 +1,47 @@
 import React, { useState } from 'react';
-import {datos3, datos4,datos5} from '../../../../utils/Bd';
+import { datos3, datos4, datos5 } from '../../../../utils/Bd';
 import { Itemactividades, Itemactividades2, Itemactividades3 } from '../itemactividades/Itemactividades';
-import { Row, Col, Table, Button, Modal } from "react-bootstrap"; // Importa Modal
-
+import { Row, Col, Button, Modal } from "react-bootstrap";
 
 export function Actividades() {
-
-
-  // Estado para almacenar los paquetes reservados
-  const [reservas, setReservas] = useState([]);
-
-  // Estado para controlar la visibilidad del modal
+  const [carrito, setCarrito] = useState([]);
+  const [precioTotal, setPrecioTotal] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
-  // Función para manejar la reserva
-  const handleReservar = (nombre) => {
-    setReservas([...reservas, nombre]); // Agrega el nombre del paquete a la lista de reservas
+  const agregarAlCarrito = (producto, precio) => {
+    setCarrito([...carrito, producto]);
+    setPrecioTotal(precioTotal + precio);
+    alert(`¡Has agregado "${producto.nombre3 || producto.nombre4 || producto.nombre5}" al carrito!`);
   };
 
-  // Función para eliminar una reserva
-  const handleEliminar = (index) => {
-    const nuevasReservas = reservas.filter((_, i) => i !== index); // Filtra la reserva a eliminar
-    setReservas(nuevasReservas);
+  const eliminarDelCarrito = (index, precio) => {
+    const nuevoCarrito = [...carrito];
+    nuevoCarrito.splice(index, 1);
+    setCarrito(nuevoCarrito);
+    setPrecioTotal(precioTotal - precio);
   };
 
-  // Función para modificar una reserva (puedes implementar la lógica que desees)
-  const handleModificar = (index) => {
-    const nuevoNombre = prompt("Ingrese el nuevo nombre del paquete:"); // Ejemplo de modificación
-    if (nuevoNombre) {
-      const nuevasReservas = [...reservas];
-      nuevasReservas[index] = nuevoNombre;
-      setReservas(nuevasReservas);
-    }
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const confirmarReservaciones = () => {
+    alert('¡Reservaciones confirmadas!');
+    setCarrito([]);
+    setPrecioTotal(0);
+    setShowModal(false);
   };
 
   return (
-    <div className='container' >
+    <div className='container'>
       <center><h1>Santuario Del Manati El Girasoles</h1></center>
       <Row xs={1} md={3} lg={4}>
         {datos3.map((producto, index) => (
           <Col key={index}>
             <div className="p-2">
-              <Itemactividades producto={producto} onReservar={() => handleReservar(producto.nombre3)} />
+              <Itemactividades 
+                producto={producto} 
+                onReservar={() => agregarAlCarrito(producto, producto.precio3)} 
+              />
             </div>
           </Col>
         ))}
@@ -51,7 +51,10 @@ export function Actividades() {
         {datos4.map((productos, index) => (
           <Col key={index}>
             <div className="p-2">
-              <Itemactividades2 productos={productos} onReservar={() => handleReservar(productos.nombre4)} />
+              <Itemactividades2 
+                productos={productos} 
+                onReservar={() => agregarAlCarrito(productos, productos.precio4)} 
+              />
             </div>
           </Col>
         ))}
@@ -61,48 +64,56 @@ export function Actividades() {
         {datos5.map((productos1, index) => (
           <Col key={index}>
             <div className="p-2">
-              <Itemactividades3 productos1={productos1} onReservar={() => handleReservar(productos1.nombre5)} />
+              <Itemactividades3 
+                productos1={productos1} 
+                onReservar={() => agregarAlCarrito(productos1, productos1.precio5)} 
+              />
             </div>
           </Col>
         ))}
       </Row>
-      <center><h2>Reservas</h2></center>
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Nombre del Paquete</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reservas.map((reserva, index) => (
-            <tr key={index}>
-              <td>{reserva}</td>
-              <td>
-                <Button variant="warning" onClick={() => handleModificar(index)}>Modificar</Button>{' '}
-                <Button variant="danger" onClick={() => handleEliminar(index)}>Eliminar</Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
 
-      <center>
-        <Button variant="primary" className="w-100 mt-3" onClick={() => setShowModal(true)}>
-          Confirmar Reservaciones
+      {/* Botón para abrir el modal */}
+      <div className="mt-4 text-center">
+        <Button variant="primary" onClick={handleShow}>
+          <i className="bi bi-cart me-2"></i> {/* Ícono de carrito */}
+          Ver Carrito de Compras
         </Button>
-      </center>
+      </div>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      {/* Modal del carrito */}
+      <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Reservación Exitosa</Modal.Title>
+          <Modal.Title>Carrito de Compras</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          ¡Tu reservación ha sido confirmada con éxito!
+          <ul>
+            {carrito.map((item, index) => (
+              <li key={index}>
+                <p><strong>Nombre:</strong> {item.nombre3 || item.nombre4 || item.nombre5}</p>
+                <p><strong>Fecha:</strong> {item.fecha3 || item.fecha4 || item.fecha5 || 'No especificada'}</p>
+                <p><strong>Horario:</strong> {item.horario3 || item.horario4 || item.horario5 || 'No especificado'}</p>
+                <p><strong>Max. Personas:</strong> {item.cantidad3 || item.cantidad4 || item.cantidad35}</p>
+                <p><strong>Precio:</strong> ${item.precio3 || item.precio4 || item.precio5}</p>
+                <Button 
+                  variant="danger" 
+                  size="sm" 
+                  className="ms-2" 
+                  onClick={() => eliminarDelCarrito(index, item.precio3 || item.precio4 || item.precio5)}
+                >
+                  Eliminar
+                </Button>
+              </li>
+            ))}
+          </ul>
+          <h3>Total: ${precioTotal}</h3>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="secondary" onClick={handleClose}>
             Cerrar
+          </Button>
+          <Button variant="success" onClick={confirmarReservaciones}>
+            Confirmar Reservaciones
           </Button>
         </Modal.Footer>
       </Modal>

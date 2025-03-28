@@ -1,6 +1,5 @@
 import React from "react";
 import {Card, Button} from "react-bootstrap"
-import "./itemactividades.scss"
 
 export function Itemactividades({producto,onReservar}) {
   return (
@@ -8,11 +7,11 @@ export function Itemactividades({producto,onReservar}) {
           <Card>
             <Card.Img variant="top" src={producto.imagen3} />
             <Card.Body className="body">
-              <Card.Title className="body_title">{producto.nombre3}</Card.Title>
-              <Card.Text className="body_text">{producto.precio3}</Card.Text>
-              <Card.Text className="body_text">{producto.horario3}</Card.Text>
-              <Card.Text className="body_text">{producto.fecha3}</Card.Text>
-              <Card.Text className="body_text">{producto.cantidad3}</Card.Text>
+              <Card.Title className="body_title">Nombre: {producto.nombre3}</Card.Title>
+              <Card.Text className="body_text">Precio: ${producto.precio3}</Card.Text>
+              <Card.Text className="body_text">Horario: {producto.horario3}</Card.Text>
+              <Card.Text className="body_text">Fecha: {producto.fecha3}</Card.Text>
+              <Card.Text className="body_text">Cantidad: {producto.cantidad3}</Card.Text>
               <Button variant="primary" className="w-100 mt-3" onClick={onReservar}>
             Reservar
           </Button>
@@ -28,11 +27,11 @@ export function Itemactividades2({productos,onReservar}) {
             <Card>
               <Card.Img variant="top" src={productos.imagen4} />
               <Card.Body className="body">
-                <Card.Title className="body_title">{productos.nombre4}</Card.Title>
-                <Card.Text className="body_text">{productos.precio4}</Card.Text>
-                <Card.Text className="body_text">{productos.horario4}</Card.Text>
-                <Card.Text className="body_text">{productos.fecha4}</Card.Text>
-                <Card.Text className="body_text">{productos.cantidad4}</Card.Text>
+                <Card.Title className="body_title">Nombre: {productos.nombre4}</Card.Title>
+                <Card.Text className="body_text">Precio: ${productos.precio4}</Card.Text>
+                <Card.Text className="body_text">Horario: {productos.horario4}</Card.Text>
+                <Card.Text className="body_text">Fecha: {productos.fecha4}</Card.Text>
+                <Card.Text className="body_text">Cantidad: {productos.cantidad4}</Card.Text>
                 <Button variant="primary" className="w-100 mt-3" onClick={onReservar}>
               Reservar
             </Button>
@@ -48,11 +47,11 @@ export function Itemactividades3({productos1,onReservar}) {
             <Card>
               <Card.Img variant="top" src={productos1.imagen5} />
               <Card.Body className="body">
-                <Card.Title className="body_title">{productos1.nombre5}</Card.Title>
-                <Card.Text className="body_text">{productos1.precio5}</Card.Text>
-                <Card.Text className="body_text">{productos1.horario5}</Card.Text>
-                <Card.Text className="body_text">{productos1.fecha5}</Card.Text>
-                <Card.Text className="body_text">{productos1.cantidad5}</Card.Text>
+                <Card.Title className="body_title">Nombre: {productos1.nombre5}</Card.Title>
+                <Card.Text className="body_text">Precio: ${productos1.precio5}</Card.Text>
+                <Card.Text className="body_text">Horario: {productos1.horario5}</Card.Text>
+                <Card.Text className="body_text">Fecha: {productos1.fecha5}</Card.Text>
+                <Card.Text className="body_text">Cantidad: {productos1.cantidad5}</Card.Text>
                 <Button variant="primary" className="w-100 mt-3" onClick={onReservar}>
               Reservar
             </Button>
