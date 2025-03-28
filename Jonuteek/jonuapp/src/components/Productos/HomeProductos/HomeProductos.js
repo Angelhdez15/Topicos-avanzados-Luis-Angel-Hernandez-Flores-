@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
 import { datos, datos2 } from '../../../utils/Bd';
 import { ItemPaquetes, ItemProductos } from '../itemProductos/ItemProducto';
-<<<<<<< HEAD
-import { Row, Col, Table, Button, Modal } from "react-bootstrap"; // Importa Modal
-export function HomeProductos() {
- 
-  // Estado para almacenar los paquetes reservados
-  const [reservas, setReservas] = useState([]);
-
-
-  // Estado para controlar la visibilidad del modal
-=======
 import { Row, Col, Button, Modal } from "react-bootstrap";
 
 export function HomeProductos() {
   const [carrito, setCarrito] = useState([]);
   const [precioTotal, setPrecioTotal] = useState(0);
->>>>>>> luis
   const [showModal, setShowModal] = useState(false);
 
   const agregarAlCarrito = (producto, precio) => {
@@ -89,9 +78,21 @@ export function HomeProductos() {
           <ul>
             {carrito.map((item, index) => (
               <li key={index}>
-                <p><strong>Nombre:</strong> {item.nombre || item.nombre2}</p>
-                <p><strong>Descripción:</strong> {item.descripcion || 'No especificada'}</p>
-                <p><strong>Precio:</strong> ${item.precio || item.precio2}</p>
+                {item.nombre2 ? ( // Si es un paquete de comida
+                  <>
+                    <p><strong>Nombre:</strong> {item.nombre2}</p>
+                    <p><strong>Cantidad:</strong> {item.cantidad2 || 'No especificada'}</p>
+                    <p><strong>Precio:</strong> ${item.precio2}</p>
+                  </>
+                ) : ( // Si es un paquete de transporte
+                  <>
+                    <p><strong>Nombre:</strong> {item.nombre}</p>
+                    <p><strong>Horario:</strong> {item.horario || 'No especificado'}</p>
+                    <p><strong>Fecha:</strong> {item.fecha || 'No especificada'}</p>
+                    <p><strong>Cantidad:</strong> {item.cantidad || 'No especificada'}</p>
+                    <p><strong>Precio:</strong> ${item.precio}</p>
+                  </>
+                )}
                 <Button 
                   variant="danger" 
                   size="sm" 

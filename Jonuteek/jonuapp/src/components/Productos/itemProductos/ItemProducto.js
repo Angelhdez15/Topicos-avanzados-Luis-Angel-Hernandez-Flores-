@@ -1,10 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
-import {Card, Button} from "react-bootstrap"
-=======
 import { Card, Button } from "react-bootstrap";
-import "./ItemProductos.scss";
->>>>>>> luis
 
 export function ItemProductos({ producto, onReservar }) {
   return (
