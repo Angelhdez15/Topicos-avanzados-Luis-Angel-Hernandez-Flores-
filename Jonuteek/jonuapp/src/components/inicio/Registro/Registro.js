@@ -62,6 +62,7 @@ export const Registro = () => {
   };
 
   return (
+    <div className="registro-page">
     <div className="registro-wrapper">
       <div className="registro-container">
         <h2>Registro</h2> 
@@ -76,9 +77,10 @@ export const Registro = () => {
       <div className="registro-bienvenida">
         <h2>¡Bienvenido!</h2>
         <p>Regístrate y empieza a disfrutar de nuestros servicios.</p>
-        <img src="https://th.bing.com/th/id/OIP.yr_ilsgXJccjrXnlYaQOYAHaE7?rs=1&pid=ImgDetMain" alt="Bienvenida" />
+        <img src="https://th.bing.com/th/id/R.cabfe296c81725c723ad79e561a40e60?rik=gtE4HwhRUPYLWw&riu=http%3a%2f%2fi.huffpost.com%2fgen%2f1272530%2fimages%2fo-MANATEES-facebook.jpg&ehk=HkuFGN2%2fmQOBel2fFX7hIMLRKSZhhA24QuFGL%2fAXhw0%3d&risl=&pid=ImgRaw&r=0" alt="Bienvenida" />
       </div>
     </div>
+    </div>  
   );
 };
 
