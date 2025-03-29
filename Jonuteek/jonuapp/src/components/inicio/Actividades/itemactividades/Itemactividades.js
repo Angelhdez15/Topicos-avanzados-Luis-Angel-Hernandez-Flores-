@@ -1,63 +1,62 @@
 import React from "react";
-import {Card, Button} from "react-bootstrap"
+import '../../../Productos/itemProductos/item.css';
 
-export function Itemactividades({producto,onReservar}) {
+export function Itemactividades({ producto, onReservar }) {
   return (
-    <div className='p-2' >
-          <Card>
-            <Card.Img variant="top" src={producto.imagen3} />
-            <Card.Body className="body">
-              <Card.Title className="body_title">Nombre: {producto.nombre3}</Card.Title>
-              <Card.Text className="body_text">Precio: ${producto.precio3}</Card.Text>
-              <Card.Text className="body_text">Horario: {producto.horario3}</Card.Text>
-              <Card.Text className="body_text">Fecha: {producto.fecha3}</Card.Text>
-              <Card.Text className="body_text">Cantidad: {producto.cantidad3}</Card.Text>
-              <Button variant="primary" className="w-100 mt-3" onClick={onReservar}>
-            Reservar
-          </Button>
-            </Card.Body>
-          </Card>
-        
+    <div className="custom-card">
+      <div className="custom-card-image">
+        <img src={producto.imagen3} alt={producto.nombre3} />
+      </div>
+      <div className="custom-card-body">
+        <h3 className="custom-card-title">{producto.nombre3}</h3>
+        <p className="custom-card-text"><strong>Precio:</strong> ${producto.precio3}</p>
+        <p className="custom-card-text"><strong>Horario:</strong> {producto.horario3}</p>
+        <p className="custom-card-text"><strong>Fecha:</strong> {producto.fecha3}</p>
+        <p className="custom-card-text"><strong>Cantidad:</strong> {producto.cantidad3} persona(s)</p>
+        <button className="custom-card-button" onClick={onReservar}>
+          Reservar
+        </button>
+      </div>
     </div>
   );
 }
-export function Itemactividades2({productos,onReservar}) {
-    return (
-      <div className='p-2' >
-            <Card>
-              <Card.Img variant="top" src={productos.imagen4} />
-              <Card.Body className="body">
-                <Card.Title className="body_title">Nombre: {productos.nombre4}</Card.Title>
-                <Card.Text className="body_text">Precio: ${productos.precio4}</Card.Text>
-                <Card.Text className="body_text">Horario: {productos.horario4}</Card.Text>
-                <Card.Text className="body_text">Fecha: {productos.fecha4}</Card.Text>
-                <Card.Text className="body_text">Cantidad: {productos.cantidad4}</Card.Text>
-                <Button variant="primary" className="w-100 mt-3" onClick={onReservar}>
-              Reservar
-            </Button>
-              </Card.Body>
-            </Card>
-          
+
+export function Itemactividades2({ productos, onReservar }) {
+  return (
+    <div className="custom-card">
+      <div className="custom-card-image">
+        <img src={productos.imagen4} alt={productos.nombre4} />
       </div>
-    );
+      <div className="custom-card-body">
+        <h3 className="custom-card-title">{productos.nombre4}</h3>
+        <p className="custom-card-text"><strong>Precio:</strong> ${productos.precio4}</p>
+        <p className="custom-card-text"><strong>Horario:</strong> {productos.horario4}</p>
+        <p className="custom-card-text"><strong>Fecha:</strong> {productos.fecha4}</p>
+        <p className="custom-card-text"><strong>Cantidad:</strong> {productos.cantidad4} persona(s)</p>
+        <button className="custom-card-button" onClick={onReservar}>
+          Reservar
+        </button>
+      </div>
+    </div>
+  );
 }
-export function Itemactividades3({productos1,onReservar}) {
-    return (
-      <div className='p-2' >
-            <Card>
-              <Card.Img variant="top" src={productos1.imagen5} />
-              <Card.Body className="body">
-                <Card.Title className="body_title">Nombre: {productos1.nombre5}</Card.Title>
-                <Card.Text className="body_text">Precio: ${productos1.precio5}</Card.Text>
-                <Card.Text className="body_text">Horario: {productos1.horario5}</Card.Text>
-                <Card.Text className="body_text">Fecha: {productos1.fecha5}</Card.Text>
-                <Card.Text className="body_text">Cantidad: {productos1.cantidad5}</Card.Text>
-                <Button variant="primary" className="w-100 mt-3" onClick={onReservar}>
-              Reservar
-            </Button>
-              </Card.Body>
-            </Card>
-          
+
+export function Itemactividades3({ productos1, onReservar }) {
+  return (
+    <div className="custom-card">
+      <div className="custom-card-image">
+        <img src={productos1.imagen5} alt={productos1.nombre5} />
       </div>
-    );
+      <div className="custom-card-body">
+        <h3 className="custom-card-title">{productos1.nombre5}</h3>
+        <p className="custom-card-text"><strong>Precio:</strong> ${productos1.precio5}</p>
+        <p className="custom-card-text"><strong>Horario:</strong> {productos1.horario5}</p>
+        <p className="custom-card-text"><strong>Fecha:</strong> {productos1.fecha5}</p>
+        <p className="custom-card-text"><strong>Cantidad:</strong> {productos1.cantidad5} persona(s)</p>
+        <button className="custom-card-button" onClick={onReservar}>
+          Reservar
+        </button>
+      </div>
+    </div>
+  );
 }
