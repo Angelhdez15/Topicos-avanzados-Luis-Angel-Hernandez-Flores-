@@ -1,78 +1,248 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
   --primary-color: #6200EE;
+  --primary-light: #9e47ff;
   --secondary-color: #f8f9fa;
-  --border-color: #ddd;
-  --text-color: #333;
+  --border-color: #e0e0e0;
+  --text-color: #2d3748;
+  --text-light: #4a5568;
   --error-color: #e74c3c;
   --button-hover: #4B00C1;
+  --background-gradient: linear-gradient(135deg, #6200EE 0%, #9e47ff 100%);
+  --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* Encapsulamos todo en un contenedor específico para la página de registro */
-html, body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+html, body {
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
 }
 
+/* Contenedor principal - Más ancho */
 .registro-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--secondary-color); /* Fondo para destacar el formulario */
-  width: 100%; /* Asegura que ocupe todo el ancho */
-  height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
-  margin: 0; /* Elimina márgenes adicionales */
-  padding: 0; /* Elimina relleno adicional */
-  box-sizing: border-box; /* Incluye bordes y padding en el tamaño total */
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--secondary-color);
 }
 
-.registro-page .registro-wrapper {
+/* Wrapper más ancho */
+.registro-wrapper {
   display: flex;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  width: 100%; /* Asegura que el contenedor se ajuste al ancho disponible */
+  width: 100%;
+  max-width: 1400px; /* Más ancho que antes */
+  margin: 0 auto;
+  box-shadow: var(--box-shadow);
+  border-radius: 0;
   overflow: hidden;
-  margin: 0; /* Elimina márgenes adicionales */
-}
-/* Sección del formulario */
-.registro-page .registro-container {
-  width: 50%;
-  padding: 2rem;
-  text-align: left;
-  animation: fadeIn 0.5s ease-in-out;
+  height: 100vh;
 }
 
-/* Sección de bienvenida */
-.registro-page .registro-bienvenida {
+/* Sección del formulario - Más espaciado */
+.registro-container {
   width: 50%;
-  background: var(--primary-color);
-  color: white;
+  padding: 2rem 1.5rem;
+  background: white;
+  overflow: visible; /* Cambiado de auto a visible */
+}
+
+.registro-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: 600;
   text-align: center;
-  padding: 2rem;
-  display: flex;
+}
+
+/* Sección de bienvenida mejorada */
+.registro-bienvenida {
+  flex: 1;
+  background: var(--background-gradient);
+  color: white;
+  padding: 4rem;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Imagen en la parte derecha */
-.registro-page .registro-bienvenida img {
+.registro-bienvenida::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+  opacity: 0.15;
+  z-index: 1;
+}
+
+.registro-bienvenida-content {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
+}
+
+.registro-bienvenida h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.registro-bienvenida p {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.registro-bienvenida img {
   width: 100%;
-  max-width: 250px;
-  border-radius: 10px;
-  margin-top: 10px;
+  max-width: 350px;
+  border-radius: 12px;
+  margin-top: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
 }
 
-/* Animación de entrada */
-@keyframes fadeIn {
+.registro-bienvenida img:hover {
+  transform: scale(1.03);
+}
+
+/* Mejoras en el formulario */
+.form-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: rgba(245, 245, 245, 0.4);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.form-section h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.input-group {
+  margin-bottom: 1.25rem;
+}
+
+.input-group label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.1);
+}
+
+.boton-registrarse {
+  background: var(--primary-color);
+  color: white;
+  padding: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.boton-registrarse:hover {
+  background: var(--button-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(98, 0, 238, 0.25);
+}
+
+/* Responsive mejorado */
+@media (min-width: 768px) {
+  .registro-bienvenida {
+    display: flex;
+  }
+  
+  .registro-container {
+    padding: 2rem 1.5rem;
+    overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+    height: 100vh; /* Ocupa toda la altura */
+  }
+  
+  .registro-bienvenida {
+    padding: 5rem;
+  }
+  
+  .registro-bienvenida h2 {
+    font-size: 2.8rem;
+  }
+  
+  .registro-bienvenida p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .registro-wrapper {
+    max-width: 1500px;
+    height: 90vh;
+    margin: 5vh auto;
+    border-radius: 15px;
+  }
+  
+  .registro-container {
+    padding: 5rem 6rem;
+  }
+  
+  .registro-bienvenida {
+    padding: 6rem;
+  }
+  
+  .registro-bienvenida h2 {
+    font-size: 3rem;
+  }
+}
+
+/* Animaciones mejoradas */
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -80,50 +250,10 @@ html, body {
   }
 }
 
-/* Inputs */
-.registro-page .input-group {
-  margin-bottom: 1rem;
+.registro-container {
+  animation: fadeInUp 0.6s ease-out;
 }
 
-.registro-page .input-group label {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 5px;
-  display: block;
-}
-
-.registro-page .input-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.registro-page .input-group input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-}
-
-/* Botón de registro */
-.registro-page .boton-registrarse {
-  background: var(--primary-color);
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.registro-page .boton-registrarse:hover {
-  background: var(--button-hover);
+.registro-bienvenida-content {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
 }
