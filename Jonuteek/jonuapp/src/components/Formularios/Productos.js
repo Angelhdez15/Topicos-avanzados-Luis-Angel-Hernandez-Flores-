@@ -28,27 +28,28 @@ export function Productos() {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        console.log("Datos enviados:", formValue);
-
+        const formData = new FormData();
+        Object.keys(formValue).forEach((key) => {
+          formData.append(key, formValue[key]);
+        });
+    
         if (productoEditando) {
-          const actualizado = await ctrProducto.updateProducto(productoEditando._id, formValue);
+          const actualizado = await ctrProducto.updateProducto(productoEditando._id, formData);
           if (actualizado && actualizado._id) {
             setListaProductos((prevProductos) =>
               prevProductos.map((producto) =>
                 producto._id === productoEditando._id ? { ...producto, ...actualizado } : producto
               )
             );
-            obtenerProductos(); // Recargar productos después de la actualización
           }
-
           setProductoEditando(null);
           setMensajeExito("Producto actualizado correctamente");
         } else {
-          const nuevoProducto = await ctrProducto.createProduct(formValue);
+          const nuevoProducto = await ctrProducto.createProduct(formData);
           setListaProductos((prevProductos) => [...prevProductos, nuevoProducto]);
           setMensajeExito("Producto agregado correctamente");
         }
-
+    
         setTimeout(() => setMensajeExito(""), 3000);
         formik.resetForm();
         obtenerProductos();
