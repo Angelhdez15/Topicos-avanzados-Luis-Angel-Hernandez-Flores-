@@ -66,37 +66,41 @@ async function delProducto(req, res) {
 async function updateProducto(req, res) {
     const { id } = req.params;
     const updateproducto = { ...req.body };
-  
+
     try {
-      const productoExistente = await Producto.findById(id);
-      if (!productoExistente) {
-        return res.status(404).send({ msg: "Producto no encontrado" });
-      }
-  
-      // Si hay una nueva imagen, actualizamos
-      if (req.files && req.files.imagep) {
-        const imagePath = imagen.getFilePath(req.files.imagep);
-        updateproducto.imagep = path.basename(imagePath);
-  
-        // Elimina la imagen anterior si existe
-        const oldImagePath = path.join(__dirname, '..', 'uploads', productoExistente.imagep);
-        if (fs.existsSync(oldImagePath)) {
-          await fs.promises.unlink(oldImagePath);
+        const productoExistente = await Producto.findById(id);
+        if (!productoExistente) {
+            return res.status(404).send({ msg: "Producto no encontrado" });
         }
-      } else {
-        updateproducto.imagep = productoExistente.imagep; // Mantener la imagen anterior
-      }
-  
-      const productoActualizado = await Producto.findByIdAndUpdate(id, updateproducto, { new: true });
-      res.status(200).send(productoActualizado);
+
+        // Manejo de la imagen
+        if (req.files && req.files.imagep) {
+            const imagePath = imagen.getFilePath(req.files.imagep);
+            updateproducto.imagep = path.basename(imagePath);
+
+            // Eliminar la imagen anterior si existe
+            if (productoExistente.imagep) {
+                const oldImagePath = path.join(__dirname, '..', 'uploads', productoExistente.imagep);
+                if (fs.existsSync(oldImagePath)) {
+                    await fs.promises.unlink(oldImagePath);
+                }
+            }
+        } else if (!productoExistente.imagep) {
+            // Si no hay imagen previa y no se envió una nueva, deja el campo vacío
+            updateproducto.imagep = "";
+        } else {
+            // Mantener la imagen anterior si no se envió una nueva
+            updateproducto.imagep = productoExistente.imagep;
+        }
+
+        // Actualizar el producto en la base de datos
+        const productoActualizado = await Producto.findByIdAndUpdate(id, updateproducto, { new: true });
+        res.status(200).send(productoActualizado);
     } catch (error) {
-      console.error("Error al actualizar producto:", error);
-      res.status(400).send({ msg: "Error al actualizar" });
+        console.error("Error al actualizar producto:", error);
+        res.status(400).send({ msg: "Error al actualizar" });
     }
-  }
-
-
-
+}
 
 module.exports = {
     createProducto,

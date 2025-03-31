@@ -7,6 +7,7 @@ import {Login} from '../components/iniciosesion/Iniciosesion'
 import { Registro } from '../components/inicio/Registro/Registro'
 import { Productos } from '../components/Formularios/Productos'
 import { Productos2 } from '../components/inicio/Actividades/Homeactividades/Act'
+import { Transporte } from '../components/Productos/HomeProductos/Transportes'
 
 export function Rutas() {
     const Layouts = (Layout, Page) => (
@@ -23,6 +24,8 @@ export function Rutas() {
          <Route path="/registro" element={<Registro/>} />
          <Route path="/formproducto" element={Layouts(Layout,Productos)} />
          <Route path="/list" element={Layouts(Layout,Productos2)} />
+         <Route path="/transp" element={Layouts(Layout,Transporte)} />
+
 
     </Routes>
     

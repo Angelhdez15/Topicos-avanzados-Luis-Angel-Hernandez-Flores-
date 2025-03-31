@@ -29,7 +29,7 @@ className="producto-img"
                 <strong>Fecha:</strong> {producto.fecha || "No disponible"}
               </p>
               <p className="producto-text">
-                <strong>Cantidad:</strong> {producto.cantidad || 0} persona(s)
+                <strong>Cantidad:</strong> {producto.cantidad || "No disponible"} persona(s)
               </p>
               <div className="producto-actions">
                 <button

@@ -28,6 +28,8 @@ export function Productos() {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
+        console.log("Datos enviados:", formValue);
+  
         const formData = new FormData();
         Object.keys(formValue).forEach((key) => {
           formData.append(key, formValue[key]);
@@ -36,12 +38,15 @@ export function Productos() {
         if (productoEditando) {
           const actualizado = await ctrProducto.updateProducto(productoEditando._id, formData);
           if (actualizado && actualizado._id) {
+            // Actualiza el estado local directamente
             setListaProductos((prevProductos) =>
               prevProductos.map((producto) =>
                 producto._id === productoEditando._id ? { ...producto, ...actualizado } : producto
               )
             );
           }
+
+  
           setProductoEditando(null);
           setMensajeExito("Producto actualizado correctamente");
         } else {
@@ -49,10 +54,9 @@ export function Productos() {
           setListaProductos((prevProductos) => [...prevProductos, nuevoProducto]);
           setMensajeExito("Producto agregado correctamente");
         }
-    
+  
         setTimeout(() => setMensajeExito(""), 3000);
         formik.resetForm();
-        obtenerProductos();
       } catch (error) {
         console.error("Error al guardar producto:", error);
       }
