@@ -29,8 +29,8 @@ async function createProducto(req, res) {
         res.status(500).send({
             msg: "Error al crear el producto",
             error: error.message,
-        });
-    }
+        });
+ }
 }
 
 async function getProducto(req, res) {
