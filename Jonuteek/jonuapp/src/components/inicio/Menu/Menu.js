@@ -23,9 +23,11 @@ export function Menu() {
             Gestión
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item as={Link} to="/formproducto">Gestionar Actividades</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/formusuarios">Gestionar Usuarios</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/formreservas">Gestionar Reservas</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/formproducto">Gestion Actividades</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/formusuarios">Gestion Usuarios</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/formreservas">Gestion Transportes</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/formreservas">Gestion Comidas</Dropdown.Item>
+
           </Dropdown.Menu>
         </Dropdown>
       </Container>
