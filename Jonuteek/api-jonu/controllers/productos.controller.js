@@ -73,18 +73,24 @@ async function updateProducto(req, res) {
             return res.status(404).send({ msg: "Producto no encontrado" });
         }
 
-        // Si hay una nueva imagen, actualizamos
+        // Si hay una nueva imagen, procesarla
         if (req.files && req.files.imagep) {
             const imagePath = imagen.getFilePath(req.files.imagep);
             updateproducto.imagep = path.basename(imagePath);
 
-            // Elimina la imagen anterior si existe
-            const oldImagePath = path.join(__dirname, '..', 'uploads', productoExistente.imagep);
-            if (fs.existsSync(oldImagePath)) {
-                await fs.promises.unlink(oldImagePath);
+            // Eliminar la imagen anterior si existe
+            if (productoExistente.imagep) {
+                const oldImagePath = path.join(__dirname, '..', 'uploads', productoExistente.imagep);
+                if (fs.existsSync(oldImagePath)) {
+                    await fs.promises.unlink(oldImagePath);
+                }
             }
+        } else if (!productoExistente.imagep) {
+            // Si no hay imagen previa y no se envió una nueva, deja el campo vacío
+            updateproducto.imagep = "";
         } else {
-            updateproducto.imagep = productoExistente.imagep; // Mantener la imagen anterior
+            // Mantener la imagen anterior si no se envió una nueva
+            updateproducto.imagep = productoExistente.imagep;
         }
 
         const productoActualizado = await Producto.findByIdAndUpdate(id, updateproducto, { new: true });
@@ -94,7 +100,6 @@ async function updateProducto(req, res) {
         res.status(400).send({ msg: "Error al actualizar" });
     }
 }
-
 
 
 module.exports = {

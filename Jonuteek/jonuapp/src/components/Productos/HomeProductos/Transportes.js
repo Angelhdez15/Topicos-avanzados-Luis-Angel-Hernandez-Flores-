@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Button, Form, Row, Col, InputGroup, Alert } from "react-bootstrap";
-import { initialValues, validationSchema } from "./Productos.form";
-import { ListProductos } from "../ListProductos/ListProductos";
-import { Producto } from "../../api";
+import { initialValues, validationSchema } from "./Transporte.form";
+import { TransporteAPI } from "../../../api/Transporte";
+import { Listtransportes } from "./ListTransporte";
 
-const ctrProducto = new Producto();
+const ctrProducto = new TransporteAPI();
 
-export function Productos() {
+export function Transporte() {
   const [listaProductos, setListaProductos] = useState([]);
   const [mensajeExito, setMensajeExito] = useState("");
   const [productoEditando, setProductoEditando] = useState(null);
@@ -75,14 +75,13 @@ export function Productos() {
   const editarProducto = (producto) => {
     setProductoEditando(producto);
     formik.setValues({
-        ubicacion: producto.ubicacion || "",
-        nombre: producto.nombre || "",
-        precio: producto.precio || "",
-        cantidad: producto.cantidad || "",
-        unidad: producto.unidad || "",
-        fecha: producto.fecha || "",
-        horario: producto.horario || "",
-        imagep: undefined, // No envíes null, deja el campo sin modificar
+        nombret: producto.nombret || "",
+        preciot: producto.preciot || "",
+        cantidadt: producto.cantidadt || "",
+        unidadt: producto.unidadt || "",
+        fechat: producto.fechat || "",
+        horariot: producto.horariot || "",
+        imagept: undefined, // No envíes null, deja el campo sin modificar
     });
 };
 
@@ -97,34 +96,25 @@ export function Productos() {
       <Form noValidate onSubmit={formik.handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} md="12">
-            <Form.Label>Nombre del Santuario</Form.Label>
+            <Form.Label>Nombre del Transporte</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="ubicacion"
-              name="ubicacion"
-              onChange={formik.handleChange}
-              value={formik.values.ubicacion}
+            type="text"
+            name="nombre"
+            placeholder="nombret"
+            value={formik.values.nombret}
+            onChange={formik.handleChange}
             />
           </Form.Group>
         </Row>
         <Row className="mb-3">
-        <Form.Group as={Col} md="3">
-            <Form.Label>Nombre de la actividad</Form.Label>
-            <Form.Control
-              type="text"
-              name="nombre"
-              placeholder="nombre"
-              value={formik.values.nombre}
-              onChange={formik.handleChange}
-            />
-          </Form.Group>
+       
           <Form.Group as={Col} md="3">
             <Form.Label>Precio</Form.Label>
             <Form.Control
               type="number"
-              name="precio"
+              name="preciot"
               placeholder="Precio"
-              value={formik.values.precio}
+              value={formik.values.preciot}
               onChange={formik.handleChange}
             />
           </Form.Group>
@@ -133,9 +123,9 @@ export function Productos() {
             <InputGroup>
               <Form.Control
                 type="number"
-                name="cantidad"
+                name="cantidadt"
                 placeholder="Cantidad"
-                value={formik.values.cantidad}
+                value={formik.values.cantidadt}
                 onChange={formik.handleChange}
               />
             </InputGroup>
@@ -144,8 +134,8 @@ export function Productos() {
     <Form.Label>Fecha</Form.Label>
     <Form.Control
       type="date"
-      name="fecha"
-      value={formik.values.fecha}
+      name="fechat"
+      value={formik.values.fechat}
       onChange={formik.handleChange}
     />
   </Form.Group>
@@ -153,8 +143,8 @@ export function Productos() {
     <Form.Label>Horario</Form.Label>
     <Form.Control
       type="time"
-      name="horario"
-      value={formik.values.horario}
+      name="horariot"
+      value={formik.values.horariot}
       onChange={formik.handleChange}
     />
   </Form.Group>
@@ -164,9 +154,9 @@ export function Productos() {
             <Form.Label>Imagen</Form.Label>
             <Form.Control
               type="file"
-              name="imagep"
+              name="imagept"
               onChange={(event) =>
-                formik.setFieldValue("imagep", event.currentTarget.files[0])
+                formik.setFieldValue("imagept", event.currentTarget.files[0])
               }
             />
           </Form.Group>
@@ -177,7 +167,7 @@ export function Productos() {
       </Form>
 
       <Row>
-        <ListProductos productos={listaProductos} onEliminar={eliminarProducto} onEditar={editarProducto} />
+        <Listtransportes transportes={listaProductos} onEliminar={eliminarProducto} onEditar={editarProducto} />
       </Row>
     </div>
   );

@@ -97,8 +97,8 @@ async function updateTransporte(req, res) {
 
 
 module.exports = {
-    createTransporte,
-    getTansporte,
+    createTransporte,    
+    getTransporte,
     delTransporte,
     updateTransporte
 }

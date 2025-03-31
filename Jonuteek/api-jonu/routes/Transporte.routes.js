@@ -7,7 +7,7 @@ const md_mparty=multiparty({uploadDir:"./uploadsT"});
 const api=express.Router();
 
 api.post("/createT",[md_mparty], TransporteController.createTransporte);
-api.get("/getT", TransporteController.getTansporte);
+api.get("/getT", TransporteController.getTransporte);
 api.patch("/updateT/:id",[md_mparty],TransporteController.updateTransporte);
 api.delete('/delT/:id', TransporteController.delTransporte);
 

@@ -9,9 +9,9 @@ const port = process.env.PORT || 4000;
 
 //Conexion al gestor de BD MongoDB
 const uri=`mongodb://${IP_SERVER}:${DB_PORT}/${DB_NAME}`;
-mongoose.connect(uri)
-.then(mongoose=>console.log('Conectado a la bd en el puerto 27017'))
-.catch(err=>console.log(err));
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Conectado a la base de datos en el puerto 27017'))
+  .catch(err => console.error('Error al conectar a la base de datos:', err));
 
 app.listen(port, () => {
     console.log("*******************");

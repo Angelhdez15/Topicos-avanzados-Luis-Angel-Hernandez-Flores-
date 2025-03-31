@@ -17,7 +17,7 @@ className="producto-img"
             <div className="producto-body">
             <h3 className="producto-title">{producto.ubicacion}</h3>
               <p className="producto-text">
-                <strong>Actividad:</strong> ${producto.nombre || "No disponible"}
+                <strong>Actividad:</strong> {producto.nombre || "No disponible"}
               </p>
               <p className="producto-text">
                 <strong>Precio:</strong> ${producto.precio || "No disponible"}
@@ -29,7 +29,7 @@ className="producto-img"
                 <strong>Fecha:</strong> {producto.fecha || "No disponible"}
               </p>
               <p className="producto-text">
-                <strong>Cantidad:</strong> {producto.cantidad || 0} persona(s)
+                <strong>Cantidad:</strong> {producto.cantidad || "No disponible"} persona(s)
               </p>
               <div className="producto-actions">
                 <button

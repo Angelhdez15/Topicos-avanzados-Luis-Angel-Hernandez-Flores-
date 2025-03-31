@@ -23,27 +23,26 @@ export class Producto{
         }
       }
 
-      async updateProducto(id, data) {
-        try {
-          const formData = new FormData();
-          Object.keys(data).forEach((key) => {
+    async updateProducto(id, data) {
+    try {
+        const formData = new FormData();
+        Object.keys(data).forEach((key) => {
             formData.append(key, data[key]);
-          });
-      
-          const response = await Axios.patch(
+        });
+
+        const response = await Axios.patch(
             `${this.baseApi}/${ENV.API_ROUTES.UPDATEPRODUCTO}/${id}`,
             formData,
             {
-              headers: { "Content-Type": "multipart/form-data" },
+                headers: { "Content-Type": "multipart/form-data" },
             }
-          );
-          return response.data;
-        } catch (error) {
-          console.error("Error al actualizar producto:", error);
-          throw error;
-        }
-      }
-      
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Error al actualizar producto:", error);
+        throw error;
+    }
+}
       async delProducto(id) {
         try {
             const url = `${this.baseApi}/${ENV.API_ROUTES.DELPRODUCTO}/${id}`;
