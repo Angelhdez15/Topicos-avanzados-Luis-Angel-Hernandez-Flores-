@@ -5,8 +5,10 @@ export function initialValues(){
         nombre: "",
         precio: "",
         cantidad: "",
-        unidad: "",
-        imagen: "",
+        fecha: "",
+        horario: "",
+        ubicacion: "",
+        imagep: "",
     }
 }
 
@@ -15,7 +17,9 @@ export function validationSchema(){
         nombre:YUP.string(),
         precio: YUP.number(),
         cantidad: YUP.number(),
-        unidad: YUP.string(),
-        imagen: YUP.string()
+        fecha: YUP.string(),
+        horario: YUP.string(),
+        ubicacion: YUP.string(),
+        imagep: YUP.string()
     })
 }

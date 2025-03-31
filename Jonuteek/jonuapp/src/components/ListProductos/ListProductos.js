@@ -1,58 +1,56 @@
 import React from 'react';
-import { Table, Button } from "react-bootstrap";
+import "./lit.css";
 
-export function ListProductos({ productos, onEliminar,onEditar }) { 
+export function ListProductos({ productos, onEliminar, onEditar }) {
   return (
-    <Table striped>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre Producto</th>
-          <th>Precio</th>
-          <th>Cantidad</th>
-          <th>Unidad</th>
-          <th>Imagen</th>
-          <th>Editar</th>
-          <th>Eliminar</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div className="productos-container">
       {Array.isArray(productos) && productos.length > 0 ? (
-             productos.map((producto, index) => (
-            <tr key={producto._id}> 
-              <td>{index + 1}</td>
-              <td>{producto.nombre}</td>
-              <td>${producto.precio}</td>
-              <td>{producto.cantidad}</td>
-              <td>{producto.unidad}</td>
-              <td>
-                <img 
-                  src={producto.imagep} 
-                  alt="Imagen" 
-                  width="50" 
-                  
-                />
-              </td>
-              <Button 
-                  variant="success" 
+        productos.map((producto) => (
+          <div className="producto-card" key={producto._id}>
+            <div className="producto-image">
+              <img
+src={`http://localhost:4000/uploads/${producto.imagep}`}     
+alt={producto.nombre || "Imagen no disponible"}
+className="producto-img"
+              />
+            </div>
+            <div className="producto-body">
+            <h3 className="producto-title">{producto.ubicacion}</h3>
+              <p className="producto-text">
+                <strong>Actividad:</strong> ${producto.nombre || "No disponible"}
+              </p>
+              <p className="producto-text">
+                <strong>Precio:</strong> ${producto.precio || "No disponible"}
+              </p>
+              <p className="producto-text">
+                <strong>Horario:</strong> {producto.horario || "No disponible"}
+              </p>
+              <p className="producto-text">
+                <strong>Fecha:</strong> {producto.fecha || "No disponible"}
+              </p>
+              <p className="producto-text">
+                <strong>Cantidad:</strong> {producto.cantidad || 0} persona(s)
+              </p>
+              <div className="producto-actions">
+                <button
+                  className="producto-button"
                   onClick={() => onEditar(producto)}
                 >
                   Editar
-                </Button>              <td>
-                <Button 
-  variant="danger" 
-  onClick={() => onEliminar(producto._id)}>
-  Eliminar
-</Button>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan="8" className="text-center">No hay productos disponibles</td>
-          </tr>
-        )}
-      </tbody>
-    </Table>
+                </button>
+                <button
+                  className="producto-button producto-button-danger"
+                  onClick={() => onEliminar(producto._id)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p className="productos-empty">No hay productos disponibles</p>
+      )}
+    </div>
   );
 }

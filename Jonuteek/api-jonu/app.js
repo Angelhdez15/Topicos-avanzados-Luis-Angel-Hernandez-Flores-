@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 //configurar carpeta de carga de files
 //app.use(express.static("uploads"))
-app.use(express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //configuracion de cors
 app.use(cors()) 

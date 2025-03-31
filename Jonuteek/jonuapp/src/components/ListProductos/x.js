@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Button, Form, Row, Col, InputGroup, Alert } from "react-bootstrap";
-import { initialValues, validationSchema } from "./Productos.form";
-import { ListProductos } from "../ListProductos/ListProductos";
-import { Producto } from "../../api";
+import { initialValues, validationSchema } from "./Formularios/Productos.form";
+import { Producto } from "../../api/";
+import "./ListProductos/lit.css";
 
 const ctrProducto = new Producto();
 
-export function Productos() {
+export function ProductosCombinado() {
   const [listaProductos, setListaProductos] = useState([]);
   const [mensajeExito, setMensajeExito] = useState("");
   const [productoEditando, setProductoEditando] = useState(null);
@@ -38,7 +38,7 @@ export function Productos() {
                 producto._id === productoEditando._id ? { ...producto, ...actualizado } : producto
               )
             );
-            obtenerProductos(); // Recargar productos después de la actualización
+            obtenerProductos();
           }
 
           setProductoEditando(null);
@@ -75,16 +75,15 @@ export function Productos() {
   const editarProducto = (producto) => {
     setProductoEditando(producto);
     formik.setValues({
-        ubicacion: producto.ubicacion || "",
-        nombre: producto.nombre || "",
-        precio: producto.precio || "",
-        cantidad: producto.cantidad || "",
-        unidad: producto.unidad || "",
-        fecha: producto.fecha || "",
-        horario: producto.horario || "",
-        imagep: undefined, // No envíes null, deja el campo sin modificar
+      nombre: producto.nombre || "",
+      precio: producto.precio || "",
+      cantidad: producto.cantidad || "",
+      unidad: producto.unidad || "",
+      fecha: producto.fecha || "",
+      horario: producto.horario || "",
+      imagep: undefined,
     });
-};
+  };
 
   useEffect(() => {
     obtenerProductos();
@@ -97,27 +96,17 @@ export function Productos() {
       <Form noValidate onSubmit={formik.handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} md="12">
-            <Form.Label>Nombre del Santuario</Form.Label>
+            <Form.Label>Nombre de la Actividad</Form.Label>
             <Form.Control
               type="text"
-              placeholder="ubicacion"
-              name="ubicacion"
+              placeholder="Producto"
+              name="nombre"
               onChange={formik.handleChange}
-              value={formik.values.ubicacion}
+              value={formik.values.nombre}
             />
           </Form.Group>
         </Row>
         <Row className="mb-3">
-        <Form.Group as={Col} md="3">
-            <Form.Label>Nombre de la actividad</Form.Label>
-            <Form.Control
-              type="text"
-              name="nombre"
-              placeholder="nombre"
-              value={formik.values.nombre}
-              onChange={formik.handleChange}
-            />
-          </Form.Group>
           <Form.Group as={Col} md="3">
             <Form.Label>Precio</Form.Label>
             <Form.Control
@@ -140,24 +129,24 @@ export function Productos() {
               />
             </InputGroup>
             <Row className="mb-3">
-      <Form.Group as={Col} md="6">
-    <Form.Label>Fecha</Form.Label>
-    <Form.Control
-      type="date"
-      name="fecha"
-      value={formik.values.fecha}
-      onChange={formik.handleChange}
-    />
-  </Form.Group>
-  <Form.Group as={Col} md="6">
-    <Form.Label>Horario</Form.Label>
-    <Form.Control
-      type="time"
-      name="horario"
-      value={formik.values.horario}
-      onChange={formik.handleChange}
-    />
-  </Form.Group>
+              <Form.Group as={Col} md="6">
+                <Form.Label>Fecha</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="fecha"
+                  value={formik.values.fecha}
+                  onChange={formik.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col} md="6">
+                <Form.Label>Horario</Form.Label>
+                <Form.Control
+                  type="time"
+                  name="horario"
+                  value={formik.values.horario}
+                  onChange={formik.handleChange}
+                />
+              </Form.Group>
             </Row>
           </Form.Group>
           <Form.Group as={Col} md="3">
@@ -177,7 +166,52 @@ export function Productos() {
       </Form>
 
       <Row>
-        <ListProductos productos={listaProductos} onEliminar={eliminarProducto} onEditar={editarProducto} />
+        <div className="productos-container">
+          {Array.isArray(listaProductos) && listaProductos.length > 0 ? (
+            listaProductos.map((producto) => (
+              <div className="producto-card" key={producto._id}>
+                <div className="producto-image">
+                  <img
+                    src={`http://localhost:4000/uploads/${producto.imagep}`}
+                    alt={producto.nombre || "Imagen no disponible"}
+                    className="producto-img"
+                  />
+                </div>
+                <div className="producto-body">
+                  <h3 className="producto-title">{producto.nombre}</h3>
+                  <p className="producto-text">
+                    <strong>Precio:</strong> ${producto.precio || "No disponible"}
+                  </p>
+                  <p className="producto-text">
+                    <strong>Horario:</strong> {producto.horario || "No disponible"}
+                  </p>
+                  <p className="producto-text">
+                    <strong>Fecha:</strong> {producto.fecha || "No disponible"}
+                  </p>
+                  <p className="producto-text">
+                    <strong>Cantidad:</strong> {producto.cantidad || 0} persona(s)
+                  </p>
+                  <div className="producto-actions">
+                    <button
+                      className="producto-button"
+                      onClick={() => editarProducto(producto)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="producto-button producto-button-danger"
+                      onClick={() => eliminarProducto(producto._id)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="productos-empty">No hay productos disponibles</p>
+          )}
+        </div>
       </Row>
     </div>
   );

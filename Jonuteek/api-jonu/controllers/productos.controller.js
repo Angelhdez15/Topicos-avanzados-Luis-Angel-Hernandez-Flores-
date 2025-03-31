@@ -4,22 +4,33 @@ const fs = require('fs');
 const path = require('path');
 
 async function createProducto(req, res) {
-    const productos = new Producto(req.body);
-    //  console.log(producto);
-
     try {
-        if (req.files.imagep) {
-            const imagePath = imagen.getFilePath(req.files.imagep);
-            productos.imagep = imagePath;
+        const productos = new Producto(req.body);
+
+        // Manejo de la imagen
+        if (req.files && req.files.imagep) {
+            const imagePath = imagen.getFilePath(req.files.imagep); // Obtiene la ruta completa
+            const fileName = path.basename(imagePath); // Extrae solo el nombre del archivo
+            productos.imagep = fileName; // Guarda solo el nombre del archivo
+        } else {
+            productos.imagep = ""; // Si no hay imagen, deja el campo vacío
         }
+
+        // Guarda el producto en la base de datos
         const datos = await productos.save();
-        res.status(200).send(datos);
+
+        // Devuelve el producto creado con el nombre de la imagen
+        res.status(200).send({
+            ...datos._doc, // Incluye todos los datos del producto
+            imageUrl: productos.imagep // Devuelve solo el nombre del archivo
+        });
     } catch (error) {
-        //console.log(error);
-
-        res.status(500).send({ msg: "Error al guardar los datos" });
-    }
-
+        console.error("Error al crear producto:", error);
+        res.status(500).send({
+            msg: "Error al crear el producto",
+            error: error.message,
+        });
+    }
 }
 
 async function getProducto(req, res) {
@@ -37,28 +48,24 @@ async function delProducto(req, res) {
     try {
         const producto = await Producto.findById(id);
         if (producto && producto.imagep) {
-            const imagePath = path.join(__dirname, '..', producto.imagep);
-            try {
+            const imagePath = path.join(__dirname, '..', 'uploads', producto.imagep); // Ajusta la ruta si es necesario
+            if (fs.existsSync(imagePath)) {
                 await fs.promises.unlink(imagePath);
-            } catch (err) {
-                console.error('Error al eliminar la imagen:', err);
-                return res.status(500).send({ msg: "Error al eliminar la imagen" });
+            } else {
+                console.warn('La imagen no existe en el servidor:', imagePath);
             }
         }
         await Producto.findByIdAndDelete(id);
         res.status(200).send({ msg: "Producto eliminado correctamente" });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({ msg: "No se ha podido eliminar la informacion" });
+        console.error("Error al eliminar producto:", error);
+        res.status(500).send({ msg: "No se ha podido eliminar la información" });
     }
 }
 
 async function updateProducto(req, res) {
     const { id } = req.params;
     const updateproducto = { ...req.body };
-
-    console.log("ID del producto a actualizar:", id);
-    console.log("Datos recibidos para actualizar:", updateproducto);
 
     try {
         const productoExistente = await Producto.findById(id);
@@ -69,14 +76,18 @@ async function updateProducto(req, res) {
         // Si hay una nueva imagen, actualizamos
         if (req.files && req.files.imagep) {
             const imagePath = imagen.getFilePath(req.files.imagep);
-            updateproducto.imagep = imagePath;
+            updateproducto.imagep = path.basename(imagePath);
+
+            // Elimina la imagen anterior si existe
+            const oldImagePath = path.join(__dirname, '..', 'uploads', productoExistente.imagep);
+            if (fs.existsSync(oldImagePath)) {
+                await fs.promises.unlink(oldImagePath);
+            }
         } else {
             updateproducto.imagep = productoExistente.imagep; // Mantener la imagen anterior
         }
 
         const productoActualizado = await Producto.findByIdAndUpdate(id, updateproducto, { new: true });
-
-        console.log("Producto actualizado en el backend:", productoActualizado);
         res.status(200).send(productoActualizado);
     } catch (error) {
         console.error("Error al actualizar producto:", error);
