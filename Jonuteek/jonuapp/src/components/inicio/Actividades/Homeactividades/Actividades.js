@@ -47,7 +47,7 @@ export function Actividades({ productos }) {
             <div className="producto-body">
               <h3 className="producto-title">{producto.ubicacion}</h3>
               <p className="producto-text">
-                <strong>Actividad:</strong> ${producto.nombre || "No disponible"}
+                <strong>Actividad:</strong> {producto.nombre || "No disponible"}
               </p>
               <p className="producto-text">
                 <strong>Precio:</strong> ${producto.precio || "No disponible"}
@@ -73,7 +73,7 @@ export function Actividades({ productos }) {
           </div>
         ))
       ) : (
-        <p className="productos-empty">No hay productos disponibles</p>
+        <p className="productos-empty">No hay Actividades disponibles</p>
       )}
 
       {/* Botón para abrir el modal */}

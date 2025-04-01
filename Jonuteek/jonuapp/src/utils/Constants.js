@@ -9,6 +9,9 @@ export const ENV={
         GETPRODUCTO:"/getproducto",
         UPDATEPRODUCTO:"/updateproducto",
         DELPRODUCTO:"/delproducto",
-        CREARUSUARIO:"/creausuario",
+        CREATETRANSPORTE:"/createT",
+        GETTRANSPORTE:"/getT",
+        UPDATETRANSPORTE:"/updateT",
+        DELTRANSPORTE:"/delT",        
     }
 }
