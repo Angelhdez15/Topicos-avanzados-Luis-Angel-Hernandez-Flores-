@@ -5,88 +5,77 @@ import { initialValues, validationSchema } from "./Transporte.form";
 import { TransporteAPI } from "../../../api/Transporte";
 import { Listtransportes } from "./ListTransporte";
 
-const ctrProducto = new TransporteAPI();
+const ctrtransportes = new TransporteAPI();
 
 export function Transporte() {
-  const [listaProductos, setListaProductos] = useState([]);
+  const [listatransportess, setListatransportess] = useState([]);
   const [mensajeExito, setMensajeExito] = useState("");
-  const [productoEditando, setProductoEditando] = useState(null);
+  const [transportesEditando, settransportesEditando] = useState(null);
 
-  const obtenerProductos = async () => {
+  const obtenertransportess = async () => {
     try {
-      const listaPro = await ctrProducto.getProducto();
-      console.log("Productos obtenidos:", listaPro);
-      setListaProductos(listaPro);
+        const listaPro = await ctrtransportes.getTransporte(); // Cambiado a getTransporte
+        console.log("Transportes obtenidos:", listaPro);
+        setListatransportess(listaPro);
     } catch (error) {
-      console.error("Error al obtener productos:", error);
+        console.error("Error al obtener transportes:", error);
     }
-  };
+};
 
-  const formik = useFormik({
-    initialValues: initialValues(),
-    validationSchema: validationSchema(),
-    validateOnChange: false,
-    onSubmit: async (formValue) => {
-      try {
-        console.log("Datos enviados:", formValue);
-
-        if (productoEditando) {
-          const actualizado = await ctrProducto.updateProducto(productoEditando._id, formValue);
-          if (actualizado && actualizado._id) {
-            setListaProductos((prevProductos) =>
-              prevProductos.map((producto) =>
-                producto._id === productoEditando._id ? { ...producto, ...actualizado } : producto
-              )
-            );
-            obtenerProductos(); // Recargar productos después de la actualización
-          }
-
-          setProductoEditando(null);
-          setMensajeExito("Producto actualizado correctamente");
-        } else {
-          const nuevoProducto = await ctrProducto.createProduct(formValue);
-          setListaProductos((prevProductos) => [...prevProductos, nuevoProducto]);
-          setMensajeExito("Producto agregado correctamente");
+const formik = useFormik({
+  initialValues,
+  validationSchema,
+  onSubmit: async (formValue) => {
+    try {
+      if (transportesEditando) {
+        const actualizado = await ctrtransportes.updateTransporte(transportesEditando._id, formValue);
+        if (actualizado && actualizado._id) {
+          setListatransportess((prevtransportess) =>
+            prevtransportess.map((transportes) =>
+              transportes._id === transportesEditando._id ? { ...transportes, ...actualizado } : transportes
+            )
+          );
+          setMensajeExito("Transporte actualizado correctamente."); // Mensaje de éxito
         }
-
-        setTimeout(() => setMensajeExito(""), 3000);
-        formik.resetForm();
-        obtenerProductos();
-      } catch (error) {
-        console.error("Error al guardar producto:", error);
+      } else {
+        const nuevotransportes = await ctrtransportes.createTransporte(formValue);
+        setListatransportess((prevtransportess) => [...prevtransportess, nuevotransportes]);
+        setMensajeExito("Transporte creado correctamente."); // Mensaje de éxito
       }
-    },
-  });
-
-  const eliminarProducto = async (id) => {
-    try {
-      console.log("Intentando eliminar producto con ID:", id);
-      console.log("Lista actual de productos:", listaProductos);
-
-      await ctrProducto.delProducto(id);
-      setListaProductos((prevProductos) =>
-        prevProductos.filter((producto) => producto._id !== id)
-      );
+      setTimeout(() => setMensajeExito(""), 3000); // Limpia el mensaje después de 3 segundos
     } catch (error) {
-      console.error("Error al eliminar producto:", error);
+      console.error("Error al guardar transporte:", error);
     }
-  };
+  },
+});
 
-  const editarProducto = (producto) => {
-    setProductoEditando(producto);
+const eliminartransportes = async (id) => {
+  try {
+    await ctrtransportes.delTransporte(id); // Llama al método de la API
+    setListatransportess((prevtransportess) =>
+      prevtransportess.filter((transportes) => transportes._id !== id)
+    );
+    setMensajeExito("Transporte eliminado correctamente."); // Mensaje de éxito
+    setTimeout(() => setMensajeExito(""), 3000); // Limpia el mensaje después de 3 segundos
+  } catch (error) {
+    console.error("Error al eliminar transporte:", error);
+  }
+};
+  const editartransportes = (transportes) => {
+    settransportesEditando(transportes);
     formik.setValues({
-        nombret: producto.nombret || "",
-        preciot: producto.preciot || "",
-        cantidadt: producto.cantidadt || "",
-        unidadt: producto.unidadt || "",
-        fechat: producto.fechat || "",
-        horariot: producto.horariot || "",
+        nombret: transportes.nombret || "",
+        preciot: transportes.preciot || "",
+        cantidadt: transportes.cantidadt || "",
+        unidadt: transportes.unidadt || "",
+        fechat: transportes.fechat || "",
+        horariot: transportes.horariot || "",
         imagept: undefined, // No envíes null, deja el campo sin modificar
     });
 };
 
   useEffect(() => {
-    obtenerProductos();
+    obtenertransportess();
   }, []);
 
   return (
@@ -99,8 +88,8 @@ export function Transporte() {
             <Form.Label>Nombre del Transporte</Form.Label>
             <Form.Control
             type="text"
-            name="nombre"
-            placeholder="nombret"
+            name="nombret"
+            placeholder="nombre del transporte"
             value={formik.values.nombret}
             onChange={formik.handleChange}
             />
@@ -162,12 +151,12 @@ export function Transporte() {
           </Form.Group>
         </Row>
         <Button type="submit">
-          {productoEditando ? "Actualizar" : "Enviar"}
+          {transportesEditando ? "Actualizar" : "Enviar"}
         </Button>
       </Form>
 
       <Row>
-        <Listtransportes transportes={listaProductos} onEliminar={eliminarProducto} onEditar={editarProducto} />
+        <Listtransportes transportes={listatransportess} onEliminar={eliminartransportes} onEditar={editartransportes} />
       </Row>
     </div>
   );

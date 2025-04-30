@@ -49,7 +49,7 @@ className="producto-img"
           </div>
         ))
       ) : (
-        <p className="productos-empty">No hay productos disponibles</p>
+        <p className="productos-empty">No hay Actividades disponibles</p>
       )}
     </div>
   );

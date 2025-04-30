@@ -45,16 +45,14 @@ async function getTransporte(req, res) { // Cambiar el nombre de la función
 async function delTransporte(req, res) {
     const { id } = req.params;
     try {
-        const Transporte = await Transporte.findById(id);
-        if (Transporte && Transporte.imagept) {
-            const imagePtath = path.join(__dirname, '..', 'uploadsT', Transporte.imagept); // Ajusta la ruta si es necesario
-            if (fs.existsSync(imagePtath)) {
-                await fs.promises.unlink(imagePtath);
-            } else {
-                console.warn('La imagen no existe en el servidor:', imagePtath);
+        const transporte = await Transporte.findById(id); // Cambiar el nombre de la variable para evitar conflictos
+        if (transporte && transporte.imagept) {
+            const imagePath = path.join(__dirname, '..', 'uploadsT', transporte.imagept);
+            if (fs.existsSync(imagePath)) {
+                await fs.promises.unlink(imagePath); // Elimina la imagen si existe
             }
         }
-        await Transporte.findByIdAndDelete(id);
+        await Transporte.findByIdAndDelete(id); // Elimina el transporte de la base de datos
         res.status(200).send({ msg: "Transporte eliminado correctamente" });
     } catch (error) {
         console.error("Error al eliminar Transporte:", error);
@@ -72,20 +70,21 @@ async function updateTransporte(req, res) {
             return res.status(404).send({ msg: "Transporte no encontrado" });
         }
 
-        // Si hay una nueva imagen, actualizamos
+        // Manejo de la imagen
         if (req.files && req.files.imagept) {
-            const imagePtath = imagen.getFilePath(req.files.imagept);
-            updateTransporte.imageptt = path.basename(imagePtath);
+            const newImagePath = imagen.getFilePath(req.files.imagept); // Obtiene la nueva imagen
+            updateTransporte.imagept = path.basename(newImagePath); // Guarda solo el nombre del archivo
 
             // Elimina la imagen anterior si existe
-            const oldImagePtath = path.join(__dirname, '..', 'uploadsT', TransporteExistente.imagept);
-            if (fs.existsSync(oldImagePtath)) {
-                await fs.promises.unlink(oldImagePtath);
+            const oldImagePath = path.join(__dirname, '..', 'uploadsT', TransporteExistente.imagept);
+            if (fs.existsSync(oldImagePath)) {
+                await fs.promises.unlink(oldImagePath); // Elimina la imagen anterior
             }
         } else {
-            updateTransporte.imageptt = TransporteExistente.imagept; // Mantener la imagen anterior
+            updateTransporte.imagept = TransporteExistente.imagept; // Mantén la imagen anterior si no se sube una nueva
         }
 
+        // Actualiza el transporte en la base de datos
         const TransporteActualizado = await Transporte.findByIdAndUpdate(id, updateTransporte, { new: true });
         res.status(200).send(TransporteActualizado);
     } catch (error) {

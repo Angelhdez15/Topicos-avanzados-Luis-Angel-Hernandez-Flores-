@@ -45,14 +45,14 @@ export class TransporteAPI {
 
     async delTransporte(id) {
         try {
-            const url = `${this.baseApi}/${ENV.API_ROUTES.DELTRANSPORTE}/${id}`;
-            const response = await Axios.delete(url);
-            return response.data; // Devuelve la respuesta del servidor
+          const url = `${this.baseApi}/${ENV.API_ROUTES.DELTRANSPORTE}/${id}`;
+          const response = await Axios.delete(url);
+          return response.data;
         } catch (error) {
-            console.error("Error al eliminar transporte:", error);
-            throw error;
+          console.error("Error al eliminar transporte:", error);
+          throw error;
         }
-    }
+      }
 
     async getTransporte() {
         try {

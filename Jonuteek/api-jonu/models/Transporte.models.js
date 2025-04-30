@@ -7,7 +7,7 @@ const Transporte=mongoose.Schema({
     horariot:String,
     cantidadt:Number,
     imagept: String, 
-    createdAT:{type:Date,default:Date.now()}
+    createdAt:{type:Date,default:Date.now()}
 })
 
 module.exports=mongoose.model("Transporte",Transporte);

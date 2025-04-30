@@ -11,7 +11,7 @@ export function Menu() {
         <img src={Image} alt="Logo" width="130" height="80" />
         <Nav className="me-auto">
           <Link className='nav-link' to="/home">Home</Link>
-          <Link className='nav-link' to="/producto">Paquetes</Link>
+          <Link className='nav-link' to="/visttransp">Boletos</Link>
           <Link className='nav-link' to="/list">Actividades</Link>
         </Nav>
         <Nav>
@@ -24,9 +24,9 @@ export function Menu() {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item as={Link} to="/formproducto">Gestion Actividades</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/formusuarios">Gestion Usuarios</Dropdown.Item>
             <Dropdown.Item as={Link} to="/transp">Gestion Transportes</Dropdown.Item>
             <Dropdown.Item as={Link} to="/formreservas">Gestion Comidas</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/formusuarios">Gestion Usuarios</Dropdown.Item>
 
           </Dropdown.Menu>
         </Dropdown>

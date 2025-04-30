@@ -4,6 +4,7 @@ import { Button, Form, Row, Col, InputGroup, Alert } from "react-bootstrap";
 import { initialValues, validationSchema } from "./Productos.form";
 import { ListProductos } from "../ListProductos";
 import { Producto } from "../../api";
+import { imagenes } from "../../assets/jpg";
 
 const ctrProducto = new Producto();
 
@@ -87,6 +88,13 @@ export function Productos() {
     obtenerProductos();
   }, []);
 
+  const {getRootProps,getInputProps} = useDropzone({
+    accept:"image/jpeg,image/png,image/jpg,image/gif",
+    onDrop,
+  });
+  const getImagen = () => {
+    return imagenes.noAvatar
+  }
   return (
     <div className="p-4">
       {mensajeExito && <Alert variant="success">{mensajeExito}</Alert>}
@@ -137,16 +145,11 @@ export function Productos() {
               onChange={formik.handleChange}
             />
           </Form.Group>
-          <Form.Group as={Col} md="3">
-            <Form.Label>Imagen</Form.Label>
-            <Form.Control
-              type="file"
-              name="imagep"
-              onChange={(event) =>
-                formik.setFieldValue("imagep", event.currentTarget.files[0])
-              }
-            />
-          </Form.Group>
+        </Row>
+        <Row>
+          <div className="form-imagen"{...getRootProps()}
+          input{src={getImagen()}}
+          ></div>
         </Row>
         <Button type="submit">
           {productoEditando ? "Actualizar" : "Enviar"}

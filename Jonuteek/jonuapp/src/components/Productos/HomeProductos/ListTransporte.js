@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Listtransportes({ transportes, onEliminar, onEditar }) {
   return (
-    <div className="transportes-container">
+    <div className="productos-container">
       {Array.isArray(transportes) && transportes.length > 0 ? (
         transportes.map((transporte) => (
           <div className="producto-card" key={transporte._id}>
@@ -14,9 +14,8 @@ export function Listtransportes({ transportes, onEliminar, onEditar }) {
               />
             </div>
             <div className="producto-body">
-              <h3 className="producto-title">{transporte.ubicaciont}</h3>
               <p className="producto-text">
-                <strong>Actividad:</strong> {transporte.nombret || "No disponible"}
+                <strong>Transporte:</strong> {transporte.nombret || "No disponible"}
               </p>
               <p className="producto-text">
                 <strong>Precio:</strong> ${transporte.preciot || "No disponible"}
