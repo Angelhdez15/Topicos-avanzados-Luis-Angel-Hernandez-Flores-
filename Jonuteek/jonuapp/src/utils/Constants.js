@@ -12,6 +12,10 @@ export const ENV={
         CREATETRANSPORTE:"/createT",
         GETTRANSPORTE:"/getT",
         UPDATETRANSPORTE:"/updateT",
-        DELTRANSPORTE:"/delT",        
+        DELTRANSPORTE:"/delT",    
+        CREATEComida:"/createC",
+        GETComida:"/getC",
+        UPDATEComida:"/updateC",
+        DELComida:"/delC",    
     }
 }
