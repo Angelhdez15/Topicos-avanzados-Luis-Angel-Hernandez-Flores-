@@ -6,6 +6,8 @@ const path = require("path");
 //importar rutas
 const productoRsoute = require('./routes/Producto.routes')
 const transporteRsoute = require('./routes/Transporte.routes')
+const ComidaseRsoute = require('./routes/Comidas.routes')
+
 //configuracion express
 const app = express()
 
@@ -17,11 +19,14 @@ app.use(bodyParser.json())
 //app.use(express.static("uploads"))
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/uploadsT", express.static(path.join(__dirname, "uploadsT")));
+app.use("/uploadsC", express.static(path.join(__dirname, "uploadsC")));
+
 
 //configuracion de cors
 app.use(cors()) 
 //uso de ruta
 app.use('/api',productoRsoute )
 app.use('/api',transporteRsoute )
+app.use('/api',ComidaseRsoute )
 //exportar app
 module.exports = app

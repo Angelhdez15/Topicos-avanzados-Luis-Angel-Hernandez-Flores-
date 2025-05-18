@@ -13,6 +13,8 @@ export function Menu() {
           <Link className='nav-link' to="/home">Home</Link>
           <Link className='nav-link' to="/visttransp">Boletos</Link>
           <Link className='nav-link' to="/list">Actividades</Link>
+          <Link className='nav-link' to="/UsuComida">Comidas y Bebidas</Link>
+
         </Nav>
         <Nav>
           <Link className='nav-link' to="/">Iniciar sesión</Link>
@@ -25,7 +27,7 @@ export function Menu() {
           <Dropdown.Menu>
             <Dropdown.Item as={Link} to="/formproducto">Gestion Actividades</Dropdown.Item>
             <Dropdown.Item as={Link} to="/transp">Gestion Transportes</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/formreservas">Gestion Comidas</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/Geacomida">Gestion Comidas</Dropdown.Item>
             <Dropdown.Item as={Link} to="/formusuarios">Gestion Usuarios</Dropdown.Item>
 
           </Dropdown.Menu>
