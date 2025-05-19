@@ -28,7 +28,7 @@ export function Menu() {
             <Dropdown.Item as={Link} to="/formproducto">Gestion Actividades</Dropdown.Item>
             <Dropdown.Item as={Link} to="/transp">Gestion Transportes</Dropdown.Item>
             <Dropdown.Item as={Link} to="/Geacomida">Gestion Comidas</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/formusuarios">Gestion Usuarios</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/Usuarios">Gestion Usuarios</Dropdown.Item>
 
           </Dropdown.Menu>
         </Dropdown>
