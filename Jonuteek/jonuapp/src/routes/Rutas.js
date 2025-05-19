@@ -10,6 +10,7 @@ import { Transporte } from '../components/Productos/HomeProductos/Transportes'
 import { RecTransporte } from '../components/Productos/itemProductos/recrtrnasp'
 import { Comida } from '../components/Comidas/ComidasGestion/ComidasGes'
 import { ComidaUsu} from '../components/Comidas/ComidasUsuario/ComidUsu'
+import { UsuariosGes } from '../components/inicio/Registro/UsuariosGes'
 
 export function Rutas() {
     const Layouts = (Layout, Page) => (
@@ -29,7 +30,7 @@ export function Rutas() {
          <Route path="/visttransp" element={Layouts(Layout,RecTransporte)} />
          <Route path="/Geacomida" element={Layouts(Layout,Comida)} />
         <Route path="/Usucomida" element={Layouts(Layout,ComidaUsu)} />
-
+        <Route path="/Usuarios" element={Layouts(Layout,UsuariosGes)} />
 
     </Routes>
     

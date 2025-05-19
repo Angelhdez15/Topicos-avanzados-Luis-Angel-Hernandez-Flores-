@@ -1,0 +1,61 @@
+.gestion-usuarios-container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 32px 24px;
+}
+
+.gestion-usuarios-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2d3a4b;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.usuarios-table th,
+.usuarios-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.usuarios-table th {
+  background: #f5f6fa;
+  color: #2d3a4b;
+  font-weight: 600;
+}
+
+.usuarios-table tr:hover {
+  background: #f0f4ff;
+}
+
+.eliminar-btn {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.eliminar-btn:hover {
+  background: #c0392b;
+}
+
+@media (max-width: 600px) {
+  .gestion-usuarios-container {
+    padding: 10px 2px;
+  }
+  .usuarios-table th, .usuarios-table td {
+    padding: 6px 2px;
+    font-size: 13px;
+  }
+}
