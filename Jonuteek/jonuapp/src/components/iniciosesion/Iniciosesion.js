@@ -9,18 +9,36 @@ export const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación básica
     if (!username || !password) {
       setError('Por favor, completa todos los campos.');
       return;
     }
 
-    console.log('Iniciando sesión con:', { username, password });
+    try {
+      const response = await fetch("http://localhost:4000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          usuario: username,
+          contrasena: password
+        })
+      });
 
-    navigate('/home'); 
+      if (response.ok) {
+        setError('');
+        navigate('/home');
+      } else {
+        const data = await response.json();
+        setError(data.msg || "Usuario o contraseña incorrectos");
+      }
+    } catch (error) {
+      setError("Error de conexión con el servidor");
+    }
   };
 
   const handleRegisterClick = () => {

@@ -7,6 +7,8 @@ const path = require("path");
 const productoRsoute = require('./routes/Producto.routes')
 const transporteRsoute = require('./routes/Transporte.routes')
 const ComidaseRsoute = require('./routes/Comidas.routes')
+const DatosRsoute = require('./routes/Datos.routes')
+
 
 //configuracion express
 const app = express()
@@ -28,5 +30,7 @@ app.use(cors())
 app.use('/api',productoRsoute )
 app.use('/api',transporteRsoute )
 app.use('/api',ComidaseRsoute )
+app.use('/api',DatosRsoute )
+
 //exportar app
 module.exports = app

@@ -14,57 +14,66 @@ export const Registro = () => {
     telefono: '',
     sexo: ''
   });
-
+  const [errores, setErrores] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormulario({ ...formulario, [e.target.name]: e.target.value });
+    setErrores({ ...errores, [e.target.name]: "" }); // Limpia el error al escribir
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formulario.contrasena !== formulario.confirmar) {
-      alert("⚠️ Las contraseñas no coinciden.");
+      setErrores({ confirmar: "⚠️ Las contraseñas no coinciden." });
       return;
     }
 
-    const usuariosGuardados = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuarioExistente = usuariosGuardados.find(user => user.usuario === formulario.usuario);
-    if (usuarioExistente) {
-      alert("⚠️ El nombre de usuario ya está en uso. Elige otro.");
-      return;
+    try {
+      const response = await fetch("http://localhost:4000/api/createdato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nombre: formulario.nombre,
+          apellido: formulario.apellido,
+          edad: formulario.edad,
+          usuario: formulario.usuario,
+          contrasena: formulario.contrasena,
+          correo: formulario.correo,
+          telefono: formulario.telefono,
+          sexo: formulario.sexo
+        })
+      });
+
+      if (response.ok) {
+        alert(`✅ ¡Registro exitoso!\nBienvenido/a ${formulario.nombre} ${formulario.apellido}`);
+        setFormulario({
+          nombre: '',
+          apellido: '',
+          edad: '',
+          usuario: '',
+          contrasena: '',
+          confirmar: '',
+          correo: '',
+          telefono: '',
+          sexo: ''
+        });
+        setErrores({});
+        navigate('/');
+      } else {
+        const data = await response.json();
+        if (data.campo) {
+          setErrores({ [data.campo]: data.msg });
+        } else {
+          alert("❌ Error al registrar: " + (data.msg || "Intenta de nuevo"));
+        }
+      }
+    } catch (error) {
+      alert("❌ Error de conexión con el servidor");
     }
-
-    const nuevoUsuario = {
-      nombre: formulario.nombre,
-      apellido: formulario.apellido,
-      edad: formulario.edad,
-      usuario: formulario.usuario,
-      contrasena: formulario.contrasena,
-      correo: formulario.correo,
-      telefono: formulario.telefono,
-      sexo: formulario.sexo
-    };
-
-    usuariosGuardados.push(nuevoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
-
-    alert(`✅ ¡Registro exitoso!\nBienvenido/a ${formulario.nombre} ${formulario.apellido}`);
-
-    setFormulario({
-      nombre: '',
-      apellido: '',
-      edad: '',
-      usuario: '',
-      contrasena: '',
-      confirmar: '',
-      correo: '',
-      telefono: '',
-      sexo: ''
-    });
-
-    navigate('/');
   };
 
   const handleLoginRedirect = () => {
@@ -79,9 +88,9 @@ export const Registro = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-section">
               <h3>Información Personal</h3>
-              <Input label="Nombre" name="nombre" value={formulario.nombre} onChange={handleChange} />
-              <Input label="Apellido" name="apellido" value={formulario.apellido} onChange={handleChange} />
-              <Input label="Edad" name="edad" type="number" value={formulario.edad} onChange={handleChange} />
+              <Input label="Nombre" name="nombre" value={formulario.nombre} onChange={handleChange} error={errores.nombre} />
+              <Input label="Apellido" name="apellido" value={formulario.apellido} onChange={handleChange} error={errores.apellido} />
+              <Input label="Edad" name="edad" type="number" value={formulario.edad} onChange={handleChange} error={errores.edad} />
               <div className="input-group">
                 <label>Sexo:</label>
                 <select name="sexo" value={formulario.sexo} onChange={handleChange} required>
@@ -95,20 +104,20 @@ export const Registro = () => {
 
             <div className="form-section">
               <h3>Información de Contacto</h3>
-              <Input label="Correo Electrónico" name="correo" type="email" value={formulario.correo} onChange={handleChange} />
-              <Input label="Teléfono" name="telefono" type="tel" value={formulario.telefono} onChange={handleChange} />
+              <Input label="Correo Electrónico" name="correo" type="email" value={formulario.correo} onChange={handleChange} error={errores.correo} />
+              <Input label="Teléfono" name="telefono" type="tel" value={formulario.telefono} onChange={handleChange} error={errores.telefono} />
             </div>
 
             <div className="form-section">
               <h3>Credenciales</h3>
-              <Input label="Usuario" name="usuario" value={formulario.usuario} onChange={handleChange} />
-              <Input label="Contraseña" name="contrasena" type="password" value={formulario.contrasena} onChange={handleChange} />
-              <Input label="Confirmar Contraseña" name="confirmar" type="password" value={formulario.confirmar} onChange={handleChange} />
+              <Input label="Usuario" name="usuario" value={formulario.usuario} onChange={handleChange} error={errores.usuario} />
+              <Input label="Contraseña" name="contrasena" type="password" value={formulario.contrasena} onChange={handleChange} error={errores.contrasena} />
+              <Input label="Confirmar Contraseña" name="confirmar" type="password" value={formulario.confirmar} onChange={handleChange} error={errores.confirmar} />
             </div>
 
             <button className="boton-registrarse" type="submit">Registrarse</button>
             <button 
-              type="submit" 
+              type="button" 
               className="boton-registrarse" 
               onClick={handleLoginRedirect}
             >
@@ -127,9 +136,17 @@ export const Registro = () => {
   );
 };
 
-const Input = ({ label, name, type = "text", value, onChange }) => (
+const Input = ({ label, name, type = "text", value, onChange, error }) => (
   <div className="input-group">
     <label>{label}:</label>
-    <input type={type} name={name} value={value} onChange={onChange} required />
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      required
+      style={error ? { border: "2px solid red" } : {}}
+    />
+    {error && <span style={{ color: "red", fontSize: "0.9em" }}>{error}</span>}
   </div>
 );
