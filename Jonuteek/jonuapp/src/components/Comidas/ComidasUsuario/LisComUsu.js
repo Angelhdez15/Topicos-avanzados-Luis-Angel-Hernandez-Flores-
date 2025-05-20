@@ -5,6 +5,7 @@ export function LisComUsu({ Comidas }) {
   const [carrito, setCarrito] = useState([]);
   const [precioTotal, setPrecioTotal] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showGraciasModal, setShowGraciasModal] = useState(false);
 
   const agregarAlCarrito = (comida) => {
     setCarrito([...carrito, comida]);
@@ -23,11 +24,13 @@ export function LisComUsu({ Comidas }) {
   const handleShow = () => setShowModal(true);
 
   const confirmarReservaciones = () => {
-    alert('¡Reservaciones confirmadas!');
     setCarrito([]);
     setPrecioTotal(0);
     setShowModal(false);
+    setShowGraciasModal(true); // Mostrar el modal de agradecimiento
   };
+
+  const cerrarGraciasModal = () => setShowGraciasModal(false);
 
   return (
     <div>
@@ -78,34 +81,62 @@ export function LisComUsu({ Comidas }) {
         {/* Modal del carrito */}
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Carrito de Compras</Modal.Title>
+            <Modal.Title>
+              <i className="bi bi-basket2-fill me-2"></i> 🛒 Carrito de Compras
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ul>
-              {carrito.map((item, index) => (
-                <li key={index}>
-                  <p><strong>Platillo:</strong> {item.nombreC}</p>
-                  <p><strong>Cantidad:</strong> {item.cantidadC || 0}</p>
-                  <p><strong>Precio:</strong> ${item.precioC || 0}</p>
-                  <Button 
-                    variant="danger" 
-                    size="sm" 
-                    className="ms-2" 
-                    onClick={() => eliminarDelCarrito(index, item.precioC || 0)}
-                  >
-                    Eliminar
-                  </Button>
-                </li>
-              ))}
-            </ul>
-            <h3>Total: ${precioTotal}</h3>
+            {carrito.length > 0 ? (
+              <ul>
+                {carrito.map((item, index) => (
+                  <li key={index} style={{ marginBottom: "15px", listStyle: "none" }}>
+                    <p><strong>🍽️ Platillo:</strong> {item.nombreC}</p>
+                    <p><strong>👥 Cantidad:</strong> {item.cantidadC || 0}</p>
+                    <p><strong>💲 Precio:</strong> ${item.precioC || 0}</p>
+                    <Button 
+                      variant="danger" 
+                      size="sm" 
+                      className="ms-2" 
+                      onClick={() => eliminarDelCarrito(index, item.precioC || 0)}
+                    >
+                      🗑️ Eliminar
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-center text-muted">🛒 Tu carrito está vacío. ¡Agrega algo delicioso! 🍔🍹</p>
+            )}
+            <h3 className="text-success text-center mt-4">Total: ${precioTotal}</h3>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Cerrar
+              ❌ Cerrar
             </Button>
-            <Button variant="success" onClick={confirmarReservaciones}>
-              Confirmar Reservaciones
+            {carrito.length > 0 && (
+              <Button variant="success" onClick={confirmarReservaciones}>
+                ✅ Confirmar Reservaciones
+              </Button>
+            )}
+          </Modal.Footer>
+        </Modal>
+
+        {/* Modal de agradecimiento */}
+        <Modal show={showGraciasModal} onHide={cerrarGraciasModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>¡Gracias por tu reservación!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              🌟 Gracias por confiar en <strong>JONUTEEK</strong>. Tu reservación ha sido confirmada y estamos emocionados de ser parte de tus momentos especiales. 🌸
+            </p>
+            <p>
+              En <strong>JONUTEEK</strong>, cada experiencia cuenta. ¡Nos vemos pronto para compartir esta maravillosa aventura! 🌿✨
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={cerrarGraciasModal}>
+              ❌ Cerrar
             </Button>
           </Modal.Footer>
         </Modal>

@@ -5,6 +5,7 @@ export function Vistransportes({ transportes }) {
   const [carrito, setCarrito] = useState([]);
   const [precioTotal, setPrecioTotal] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showGraciasModal, setShowGraciasModal] = useState(false);
 
   const agregarAlCarrito = (transporte) => {
     setCarrito([...carrito, transporte]);
@@ -23,11 +24,13 @@ export function Vistransportes({ transportes }) {
   const handleShow = () => setShowModal(true);
 
   const confirmarReservaciones = () => {
-    alert('¡Reservaciones confirmadas!');
     setCarrito([]);
     setPrecioTotal(0);
     setShowModal(false);
+    setShowGraciasModal(true); // Mostrar el modal de agradecimiento
   };
+
+  const cerrarGraciasModal = () => setShowGraciasModal(false);
 
   return (
     <div>
@@ -45,19 +48,18 @@ export function Vistransportes({ transportes }) {
                 />
               </div>
               <div className="producto-body">
-              <h3 className="producto-title">{transporte.nombret}</h3>
-
+                <h3 className="producto-title">{transporte.nombret}</h3>
                 <p className="producto-text">
-                  <strong>Precio:</strong> ${transporte.preciot || "No disponible"}
+                  <strong> Precio:</strong> ${transporte.preciot || "No disponible"}
                 </p>
                 <p className="producto-text">
-                  <strong>Horario:</strong> {transporte.horariot || "No disponible"}
+                  <strong> Horario:</strong> {transporte.horariot || "No disponible"}
                 </p>
                 <p className="producto-text">
-                  <strong>Fecha:</strong> {transporte.fechat || "No disponible"}
+                  <strong> Fecha:</strong> {transporte.fechat || "No disponible"}
                 </p>
                 <p className="producto-text">
-                  <strong>Cantidad:</strong> {transporte.cantidadt || "No disponible"} persona(s)
+                  <strong> Cantidad:</strong> {transporte.cantidadt || "No disponible"} persona(s)
                 </p>
                 <div className="producto-actions">
                   <button
@@ -91,11 +93,11 @@ export function Vistransportes({ transportes }) {
           <ul>
             {carrito.map((item, index) => (
               <li key={index}>
-                <p><strong>Transporte</strong> {item.nombret}</p>
-                <p><strong>Fecha:</strong> {item.fechat || 'No especificada'}</p>
-                <p><strong>Horario:</strong> {item.horariot || 'No especificado'}</p>
-                <p><strong>Cantidad:</strong> {item.cantidadt || 0}</p>
-                <p><strong>Precio:</strong> ${item.preciot || 0}</p>
+                <p><strong>🚌 Transporte:</strong> {item.nombret}</p>
+                <p><strong>📅 Fecha:</strong> {item.fechat || 'No especificada'}</p>
+                <p><strong>⏰ Horario:</strong> {item.horariot || 'No especificado'}</p>
+                <p><strong>👥 Cantidad:</strong> {item.cantidadt || 0}</p>
+                <p><strong>💲 Precio:</strong> ${item.preciot || 0}</p>
                 <Button 
                   variant="danger" 
                   size="sm" 
@@ -115,6 +117,26 @@ export function Vistransportes({ transportes }) {
           </Button>
           <Button variant="success" onClick={confirmarReservaciones}>
             Confirmar Reservaciones
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de agradecimiento */}
+      <Modal show={showGraciasModal} onHide={cerrarGraciasModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>¡Gracias por tu reservación!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            🌟 Gracias por confiar en <strong>JONUTEEK</strong>. Tu reservación ha sido confirmada y estamos emocionados de ser parte de tus momentos especiales. 🌸
+          </p>
+          <p>
+            En <strong>JONUTEEK</strong>, cada experiencia cuenta. ¡Nos vemos pronto para compartir esta maravillosa aventura! 🌿✨
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={cerrarGraciasModal}>
+            ❌ Cerrar
           </Button>
         </Modal.Footer>
       </Modal>

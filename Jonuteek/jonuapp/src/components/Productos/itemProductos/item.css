@@ -265,3 +265,91 @@ button:not(.custom-card-button):hover {
     font-size: 0.9rem;
   }
 }
+
+/* Estilos para el modal del carrito */
+.modal-content {
+  background: linear-gradient(145deg, #e8f5e9, #c8e6c9); /* Colores suaves relacionados con la naturaleza */
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(145deg, #a5d6a7, #81c784); /* Verde suave */
+  color: white;
+  border-bottom: none;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.modal-body {
+  background: linear-gradient(145deg, #ffffff, #f1f8e9); /* Fondo claro */
+  padding: 20px;
+  border-radius: 0 0 15px 15px;
+}
+
+.modal-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-body li {
+  background: #ffffff;
+  border: 1px solid #c8e6c9;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body li p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #4caf50; /* Verde natural */
+}
+
+.modal-footer {
+  background: linear-gradient(145deg, #a5d6a7, #81c784);
+  border-top: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-footer button {
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-footer button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de eliminar */
+.modal-body .btn-danger {
+  background: #e57373;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.modal-body .btn-danger:hover {
+  background: #d32f2f;
+}
+
+/* Botón de confirmar */
+.modal-footer .btn-success {
+  background: #4caf50;
+  border: none;
+}
+
+.modal-footer .btn-success:hover {
+  background: #388e3c;
+}
