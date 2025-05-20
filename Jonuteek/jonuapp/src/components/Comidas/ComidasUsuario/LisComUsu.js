@@ -48,7 +48,7 @@ export function LisComUsu({ Comidas }) {
               </div>
               <div className="producto-body">
                 <p className="producto-text">
-                  <strong>Platillo:</strong> {comida.nombreC || "No disponible"}
+                  <strong>Platillo y/o Agua:</strong> {comida.nombreC || "No disponible"}
                 </p>
                 <p className="producto-text">
                   <strong>Precio:</strong> ${comida.precioC || "No disponible"}
